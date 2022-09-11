@@ -23,7 +23,7 @@
           <div class="logo_wrapp">Ізяславський Лісгосп</div>
           <div class="">
             <?php if (isset($_SESSION['user_name'])) { ?>
-              <a href="create_ticket.php" class="navbar_link">Створити Лісорубний Квиток</a>
+              <a href="create-ticket.php" class="navbar_link">Створити Лісорубний Квиток</a>
               <a href="logout.php" class="logout_btn">Вийти з системи</a>
             <?php }?>
           </div>
