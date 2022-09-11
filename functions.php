@@ -129,7 +129,6 @@ class General {
     
     public function deleteRow($column, $column_name, $param){
         $sql = "DELETE FROM $column WHERE `$column_name`='$param'";
-        //console_log('hello');
         $sth = $this->dbs->prepare($sql);
         $sth->execute();
         /*if ($sth->execute()) {
@@ -495,3 +494,16 @@ function getTotalPorodyAfterFilterKvytok($all_array){
     );
     return ($result);
 }
+
+function getHighestValue($db_connection,$table_name,$column_name){
+    $sql = "SELECT `$column_name` FROM `$table_name`";
+    $sth = $db_connection->dbs->prepare($sql);
+    $sth->execute();
+    $sth->setFetchMode(PDO::FETCH_ASSOC);
+    $results = $sth->fetchAll();
+    $all_values = [];
+    foreach($results as $row){
+        $all_values[] = $row[$column_name];
+    }
+    return max($all_values);
+};

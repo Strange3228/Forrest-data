@@ -473,3 +473,14 @@ input[type="number"] {
   display: flex;
   justify-content: flex-end;
 }
+.create_ticket_data_single input {
+  outline: none;
+  border-radius: 8px;
+  border: 2px solid grey;
+}
+.input_with_error {
+  border: 3px solid #df4f4f !important;
+}
+input[name="ticket_number"] {
+  pointer-events: none;
+}
