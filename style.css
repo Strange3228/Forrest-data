@@ -1,0 +1,364 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+a {
+  color: inherit;
+}
+.container {
+  max-width: 1440px;
+  margin: auto;
+  padding: 0 20px;
+}
+header {
+  background: lightgrey;
+  margin-bottom: 50px;
+}
+nav {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo_wrapp {
+  font-size: 30px;
+  padding: 10px 20px;
+  background: green;
+  color: white;
+  border-radius: 14px;
+}
+
+.default__items {
+  background: lightgray;
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 40px;
+  row-gap: 40px;
+}
+.default_item {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+section {
+  margin-bottom: 50px;
+}
+.box {
+  background: lightgrey;
+  padding: 40px 20px;
+}
+.box_title {
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+.table_wrapp {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: white;
+}
+.page__title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+section.page_titles {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.archive_lisnyctwa_item {
+  background: white;
+  padding: 20px;
+}
+.archive_lisnyctwa_item__title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+.archive_lisnyctwa_item__subtitle {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.archive_lisnyctwa_item__data {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  column-gap: 200px;
+}
+.archive_lisnyctwa_item__btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+}
+.archive_lisnyctwa_item__btns a {
+  padding: 10px 40px;
+  color: white;
+  border-radius: 10px;
+}
+.archive_lisnyctwa_item__btns-edit {
+  background: #3da54e;
+}
+.archive_lisnyctwa_item__btns-view {
+  background: #df4f4f;
+}
+.archive_lisnyctwa_item__details_list_item,
+.archive_lisnyctwa_item__total_list_item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+.archive_lisnyctwa_item__total_list_item--value {
+  background: lightgray;
+  min-width: 150px;
+  text-align: center;
+  padding: 5px 15px;
+}
+.archive_lisnyctwa_item__data--total > p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.archive_lisnyctwa_item {
+  margin-bottom: 40px;
+}
+.search_wrapp {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.search_wrapp input {
+  padding: 5px 10px;
+  width: 200px;
+  border-radius: 3px;
+  border: 1px solid black;
+  outline: none;
+}
+.page__title {
+  margin-bottom: 10px;
+}
+.page__subtitle {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+.accordeon {
+  background: darkgrey;
+  padding: 0 20px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+}
+.accordeon__main {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.accordeon_content {
+  padding-bottom: 20px;
+}
+.accordeon__main img {
+  width: 15px;
+  transform: rotate(-90deg);
+  transition: all 0.3s ease;
+}
+.accordeon.active img {
+  transform: rotate(0deg);
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.footer_copyright {
+  text-align: center;
+  background: darkgray;
+  color: white;
+  padding: 5px;
+}
+footer {
+  margin-top: auto;
+}
+.login_form_section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login_form_container {
+  max-width: 100%;
+}
+.login_form_container form {
+  transform: translateY(-40px);
+  background: darkgrey;
+  padding: 30px 30px;
+  width: 300px;
+  max-width: 100%;
+}
+.login_form_container form label {
+  display: block;
+  font-size: 14px;
+  color: white;
+  margin-bottom: 5px;
+}
+.login_form_container form input {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 5px 10px;
+  border: 1px solid black;
+  outline: none;
+  border-radius: 4px;
+}
+.login_form_container form button {
+  background: #3da54e;
+  padding: 10px 40px;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.form_error_wrapp {
+  text-align: center;
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  white-space: nowrap;
+  padding: 3px 10px;
+  background: #b00020;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: none;
+}
+.form_error_wrapp.show {
+  display: block;
+}
+.logout_btn {
+  margin-left: auto;
+  background: #df4f4f;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+.archive_lisnyctwa_item__data {
+  display: block;
+}
+.archive_lisnyctwa_item__data--total > p {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.archive_lisnyctwa_item__total_list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
+  row-gap: 5px;
+}
+.archive_lisnyctwa_item__total_list_item {
+  display: flex;
+  justify-content: space-between;
+}
+.archive_lisnyctwa_item__total_list_item p {
+  flex: 1;
+}
+.accordeon__table table {
+  background: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.accordeon__table table th,
+.accordeon__table table td {
+  padding: 10px 10px;
+  text-align: center;
+  border: 1px solid black;
+}
+.accordeon__table {
+  max-width: 100%;
+  overflow: scroll;
+}
+thead {
+  text-transform: capitalize;
+}
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table td,
+table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #ddd;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
+}
+.total_row {
+  background: #df4f4f !important;
+  color: white;
+}
+.type_total_column {
+  background: #ff99cc;
+}
+.row_items_total {
+  background-color: #ff99cc;
+  color: white;
+}
+.section_total {
+  background-color: #ff99cc;
+  color: white;
+}
+.dilova_column {
+  background-color: #ff99cc;
+  color: white;
+}
+.ostatky_table thead th {
+  min-width: 100px;
+}
+.ostatky_table--totals {
+  font-weight: bolder;
+}
+
+.ostatky_table--percentage {
+  background: #ffff99 !important;
+  font-weight: bold;
+}
+.numer_kvytka {
+  color: black;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
