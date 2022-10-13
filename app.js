@@ -1,4 +1,9 @@
 $(document).ready(function () {
+  $("select").each(function () {
+    let selectVal = $(this).val();
+    console.log(selectVal);
+  });
+
   $("#archive_lisnyctwa_search_name").on("input", function () {
     if ($(this).val() != "") {
       let searchText = $(this).val().toLowerCase();
@@ -57,6 +62,7 @@ $(document).ready(function () {
     $("#create_ticket_form input").each(function () {
       if (
         ($(this).attr("name") != "func_name" &&
+          $(this).attr("name") != "table_name" &&
           $.isNumeric($(this).val()) == false) ||
         $(this).val() == ""
       ) {
@@ -78,14 +84,18 @@ $(document).ready(function () {
     if (!hasError) {
       var filter = $("#create_ticket_form");
       var formData = filter.serialize();
-
+      console.log(formData);
       $.ajax({
         type: "post",
         url: $(this).attr("action"),
         data: formData,
         success: function (response) {
           $(".create_ticket__submit").text("Підтвердити");
-          alert("Квиток успішно створений");
+          if (response.includes("data_added")) {
+            alert("Данні успішно додані");
+          } else if (response.includes("ticket_added")) {
+            alert("Квиток успішно створений");
+          }
           $("#create_ticket_form .create_ticket_data_wrapper input").val(0);
           let nextval =
             Number(

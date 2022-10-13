@@ -2,11 +2,11 @@
 <?php include('functions.php');?>
 <?php checkIfUserIsLogged(); ?>
 <?php $db_connection = new General; ?>
-<?php $table_data = $db_connection->getData('osvitnia_myhelskie'); ?>
+<?php $table_data = $db_connection->getData($_GET['rubka'] . '_' . $_GET['lisnyctwo']); ?>
 
 <section class="page_titles">
   <div class="container">
-    <h1 class="page__title">Тип Рубки: <?php echo $_GET['rubka']; ?></h1>
+    <h1 class="page__title">Тип Рубки: <?php echo wordsTranslation($_GET['rubka']); ?></h1>
     <h3 class="page__subtitle">Лісництво: <?php echo $_GET['lisnyctwo']; ?></h3>
     <p class="page__subsubtitle">Режим детального перегляду</p>
   </div>
@@ -56,15 +56,15 @@
                               <tr class="total_row">
                                 <td colspan="2">Всього</td>
                                 <?php
-                                $totalPorody = TotalEveryType($db_connection);
-                                $columns_total = totalInColumn($db_connection, $totalPorody);
+                                $totalPorody = TotalEveryType($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
+                                $columns_total = totalInColumn($db_connection, $totalPorody, null, $_GET['rubka'], $_GET['lisnyctwo']);
                                 foreach($columns_total as $key => $value) { ?>
                                     <td class="<?php if(strpos($key, 'sectiontotal')) {echo 'section_total'; } ?>"><?php echo $value; ?></td>
                                 <?php }
                                 ?>
                               </tr>
                               <?php
-                                $rows_total = totalSinglePorodaInLine($db_connection);
+                                $rows_total = totalSinglePorodaInLine($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
                               ?>
                               <?php foreach($table_data as $row) { $row_id = $row['id']; $previousWord = ''; ?>
                                 <tr data-row-id=<?php echo $row_id; ?>>
@@ -114,8 +114,8 @@
                               <tr class="total_row">
                                 <td colspan="2">Всього</td>
                                 <?php
-                                    $totalPorody = TotalEveryType($db_connection);
-                                    $columns_total = totalInColumn($db_connection, $totalPorody);
+                                    $totalPorody = TotalEveryType($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
+                                    $columns_total = totalInColumn($db_connection, $totalPorody, null, $_GET['rubka'], $_GET['lisnyctwo']);
                                     $chvorost1 = $columns_total['chvorost_1c'];
                                     $chvorost2 = $columns_total['chvorost_2c'];
                                     $chvorost3 = $columns_total['chvorost_3c'];
@@ -172,7 +172,7 @@
                             <tbody>
                               <tr class="total_row">
                                 <?php
-                                    $totalSortyments = totalBySortyment($db_connection);
+                                    $totalSortyments = totalBySortyment($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
                                 ?>
                                 <td colspan="2">Всього</td>
                                 <td class="dilova_column"><?php echo $totalSortyments['dilova']; ?></td>
@@ -183,7 +183,7 @@
                                 <td><?php echo $totalSortyments['pv']; ?></td>
                                 <td><?php echo $totalSortyments['np']; ?></td>
                               </tr>
-                              <?php $totalBySortymentInRow = totalBySortymentInRow($db_connection); ?>
+                              <?php $totalBySortymentInRow = totalBySortymentInRow($db_connection, $_GET['rubka'], $_GET['lisnyctwo']); ?>
                               <?php foreach($table_data as $row) { $row_id = $row['id'];  $singleRowTotals = $totalBySortymentInRow[$row_id]; ?>
                                 <tr>
                                     <td><?php echo $row['kvartal']; ?></td>

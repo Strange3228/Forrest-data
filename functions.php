@@ -192,6 +192,12 @@ function wordsTranslation( $word ){
             return 'IIc';
         case '3c':
             return 'IIIc';
+        case 'myhelskie':
+            return 'Михельське';
+        case 'osvitlenia':
+            return 'Освітлення';
+        default:
+            return $word;
     }
     return $word;
 }
@@ -238,7 +244,7 @@ function allowedCoreDataNames(){
 
 $db_connection = new General;
 /*Total porody*/
-function TotalEveryType($db_connection){
+function TotalEveryType($db_connection, $rubka_arg, $lisnyctwo_arg){
     $total = array(
         'bereza' => 0,
         'chvorost' => 0,
@@ -256,7 +262,7 @@ function TotalEveryType($db_connection){
         'sosna' => 0,
         'vilha' => 0,
     );
-    $table_data = $db_connection->getData('osvitnia_myhelskie');
+    $table_data = $db_connection->getData($rubka_arg . '_' . $lisnyctwo_arg);
     foreach ($table_data as $row){
         foreach($row as $item_key => $item_value){
             foreach($total as $typ => $value) {
@@ -269,11 +275,11 @@ function TotalEveryType($db_connection){
     return($total);
 }
 
-function TotalChvorost($db_connection){
+function TotalChvorost($db_connection, $rubka_arg, $lisnyctwo_arg){
     $total = array(
         'chvorost' => 0
     );
-    $table_data = $db_connection->getData('osvitnia_myhelskie');
+    $table_data = $db_connection->getData($rubka_arg . '_' . $lisnyctwo_arg);
     foreach ($table_data as $row){
         foreach($row as $item_key => $item_value){
             foreach($total as $typ => $value) {
@@ -287,7 +293,7 @@ function TotalChvorost($db_connection){
 }
 
 /**TOTAL IN COLUMN */
-function totalInColumn($db_connection, $total, $all_porody = null){
+function totalInColumn($db_connection, $total, $all_porody = null, $rubka_arg, $lisnyctwo_arg){
 
     $allCoreNamePorody = array(
         'bereza' => 0,
@@ -305,7 +311,7 @@ function totalInColumn($db_connection, $total, $all_porody = null){
     );
 
     $all_porody = isset($all_porody) ? $all_porody : $allCoreNamePorody;
-    $table_data = $db_connection->getData('osvitnia_myhelskie');
+    $table_data = $db_connection->getData($rubka_arg . '_' . $lisnyctwo_arg);
     $columns_total = [];
     foreach ($table_data as $row){ $row_id = $row['id']; $previousWord = '';
         foreach($row as $item_key => $item_value){
@@ -331,8 +337,8 @@ function totalInColumn($db_connection, $total, $all_porody = null){
 }
 
 /**TOTAL PORODY IN ROW */
-function totalSinglePorodaInLine($db_connection){
-    $table_data = $db_connection->getData('osvitnia_myhelskie');
+function totalSinglePorodaInLine($db_connection, $rubka_arg, $lisnyctwo_arg){
+    $table_data = $db_connection->getData($rubka_arg . '_' . $lisnyctwo_arg);
 
     $rows_total = [];
 
@@ -359,8 +365,8 @@ function totalSinglePorodaInLine($db_connection){
     return($rows_total);
 }
 
-function totalBySortymentInRow($db_connection){
-    $table_data = $db_connection->getData('osvitnia_myhelskie');
+function totalBySortymentInRow($db_connection, $rubka_arg, $lisnyctwo_arg){
+    $table_data = $db_connection->getData($rubka_arg . '_' . $lisnyctwo_arg);
 
     $rows_total_sortyments = [];
 
@@ -391,8 +397,8 @@ function totalBySortymentInRow($db_connection){
     return ($rows_total_sortyments);
 }
 
-function totalBySortyment($db_connection) {
-    $table_data = $db_connection->getData('osvitnia_myhelskie');
+function totalBySortyment($db_connection, $rubka_arg, $lisnyctwo_arg) {
+    $table_data = $db_connection->getData($rubka_arg . '_' . $lisnyctwo_arg);
     $total = array(
         'dilova' => 0,
         'a' => 0,
@@ -402,7 +408,7 @@ function totalBySortyment($db_connection) {
         'pv' => 0,
         'np' => 0
     );
-    $totalInRows = totalBySortymentInRow($db_connection);
+    $totalInRows = totalBySortymentInRow($db_connection, $rubka_arg, $lisnyctwo_arg);
     foreach($totalInRows as $row){
         foreach($row as $item_key => $item_value){
             $value = $total[$item_key] + $item_value;

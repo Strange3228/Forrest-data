@@ -6,7 +6,7 @@
 
 <section class="page_titles">
   <div class="container">
-    <h1 class="page__title">Тип Рубки: <?php echo $_GET['rubka']; ?></h1>
+    <h1 class="page__title">Тип Рубки: <?php echo wordsTranslation($_GET['rubka']); ?></h1>
   </div>
 </section>
 
@@ -36,7 +36,7 @@
                         'vilha' => 0
                     );
                     $total_ploshcha = 0;
-                    $table_data = $db_connection->getData('osvitnia_myhelskie');
+                    $table_data = $db_connection->getData('osvitlenia_myhelskie');
                     foreach ($table_data as $row){
                         $total_ploshcha = $row['ploshcha'] + $total_ploshcha;
                         foreach($row as $item_key => $item_value){
@@ -92,8 +92,8 @@
                 </div>
 
                 <div class="archive_lisnyctwa_item__btns">
-                    <a href="#" class="archive_lisnyctwa_item__btns-edit">Додати данні</a>
-                    <a href="lisnyctwo.php?rubka=osvitnia&lisnyctwo=myhelskie" class="archive_lisnyctwa_item__btns-view">Детальніше</a>
+                    <a href="dodajInfo.php?rubka=osvitlenia&lisnyctwo=myhelskie" class="archive_lisnyctwa_item__btns-edit">Додати данні</a>
+                    <a href="lisnyctwo.php?rubka=osvitlenia&lisnyctwo=myhelskie" class="archive_lisnyctwa_item__btns-view">Детальніше</a>
                 </div>
             </div>
         </div>

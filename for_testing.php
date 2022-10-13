@@ -1,1 +1,31 @@
-INSERT INTO `lisorubni_kvytky`(`number`, `sosna`, `sosna_dilova`, `jalyna`, `jalyna_dilova`, `dub`, `dub_dilova`, `bereza`, `bereza_dilova`, `vilha`, `vilha_dilova`, `grab`, `grab_dilova`, `jasen`, `jasen_dilova`, `klen`, `klen_dilova`, `osyka`, `osyka_dilova`, `lypa`, `lypa_dilova`, `inshe`, `inshe_dilova`, `chvorost_1c`, `chvorost_2c`, `chvorost_3c`) VALUES (3,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26)
+<div class="create_ticket_data_single">
+                    <div class="create_ticket_data_single__left">
+                        <p>Вільха</p>
+                    </div>
+                    <div class="create_ticket_data_single__right">
+                        <div class="create_ticket_input_box">
+                            <label for="vilha_a">A</label>
+                            <input type="text" value="0" name="vilha_a">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="vilha_b">B</label>
+                            <input type="text" value="0" name="vilha_b">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="vilha_c">C</label>
+                            <input type="text" value="0" name="vilha_c">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="vilha_d">D</label>
+                            <input type="text" value="0" name="vilha_d">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="vilha_pv">ПВ</label>
+                            <input type="text" value="0" name="vilha_pv">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="vilha_np">НП</label>
+                            <input type="text" value="0" name="vilha_np">
+                        </div>
+                    </div>
+                </div>

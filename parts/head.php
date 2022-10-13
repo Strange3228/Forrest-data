@@ -20,7 +20,7 @@
     <header class="header_wrapp">
       <div class="container">
         <nav>
-          <div class="logo_wrapp">Ізяславський Лісгосп</div>
+          <div class="logo_wrapp"><a href="front-page.php">Ізяславський Лісгосп</a></div>
           <div class="">
             <?php if (isset($_SESSION['user_name'])) { ?>
               <a href="create-ticket.php" class="navbar_link">Створити Лісорубний Квиток</a>

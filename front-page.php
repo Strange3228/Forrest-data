@@ -12,7 +12,7 @@
   <div class="container">
     <div class="default__items">
       <div class="default_item">
-        <a href="lisnyctwa.php?rubka=osvitnia">Освітня рубка</a>
+        <a href="lisnyctwa.php?rubka=osvitlenia">Освітлення</a>
       </div>
       <div class="default_item">
         <a href="#">Прочисна рубка</a>
