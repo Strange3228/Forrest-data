@@ -1,7 +1,6 @@
 $(document).ready(function () {
   $("select").each(function () {
     let selectVal = $(this).val();
-    console.log(selectVal);
   });
 
   $("#archive_lisnyctwa_search_name").on("input", function () {

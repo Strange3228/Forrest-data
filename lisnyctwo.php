@@ -7,7 +7,7 @@
 <section class="page_titles">
   <div class="container">
     <h1 class="page__title">Тип Рубки: <?php echo wordsTranslation($_GET['rubka']); ?></h1>
-    <h3 class="page__subtitle">Лісництво: <?php echo $_GET['lisnyctwo']; ?></h3>
+    <h3 class="page__subtitle">Лісництво: <?php echo wordsTranslation($_GET['lisnyctwo']); ?></h3>
     <p class="page__subsubtitle">Режим детального перегляду</p>
   </div>
 </section>
@@ -160,6 +160,7 @@
                               <tr>
                                 <th>Квартал</th>
                                 <th>Виділ</th>
+                                <th class="total_row">Всього</th>
                                 <th class="dilova_column">Ділова</th>
                                 <th>A</th>
                                 <th>B</th>
@@ -175,6 +176,7 @@
                                     $totalSortyments = totalBySortyment($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
                                 ?>
                                 <td colspan="2">Всього</td>
+                                <td class="total_row"><?php echo $totalSortyments['total']; ?></td>
                                 <td class="dilova_column"><?php echo $totalSortyments['dilova']; ?></td>
                                 <td><?php echo $totalSortyments['a']; ?></td>
                                 <td><?php echo $totalSortyments['b']; ?></td>
@@ -188,6 +190,7 @@
                                 <tr>
                                     <td><?php echo $row['kvartal']; ?></td>
                                     <td><?php echo $row['vydil']; ?></td>
+                                    <td class="total_row"><?php echo $singleRowTotals['total']; ?></td>
                                     <td class="dilova_column"><?php echo $singleRowTotals['dilova']; ?></td>
                                     <td><?php echo $singleRowTotals['a']; ?></td>
                                     <td><?php echo $singleRowTotals['b']; ?></td>
@@ -404,7 +407,6 @@
                                 $kvytokData = getKvytokData($db_connection, $single_kvytok);
                                 $dataByKvytokNumber = getDataByKvytokNumber($db_connection, $_GET['rubka'] . '_' . $_GET['lisnyctwo'], $single_kvytok);
                                 $filteredDataTotals = getTotalPorodyAfterFilterKvytok($dataByKvytokNumber);
-                                console_log($kvytokData);
                                 $differences = []; ?>
                                 <p class="numer_kvytka">Номер Лісорубного Квитка: №<?php echo $single_kvytok; ?></p>
                                 <table class="ostatky_table">

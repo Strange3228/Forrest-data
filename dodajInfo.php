@@ -2,7 +2,7 @@
 <?php include('functions.php');?>
 <?php checkIfUserIsLogged(); ?>
 <?php $db_connection = new General;?>
-<?php $table_data_tickets = $db_connection->getData('lisorubni_kvytky'); console_log($table_data_tickets); ?>
+<?php $table_data_tickets = $db_connection->getData('lisorubni_kvytky'); ?>
 
 <?php $all_porody=array(
     'sosna' => 'Сосна',

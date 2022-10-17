@@ -136,6 +136,15 @@ class General {
         }
         return false;*/
     }
+
+    public function getTableNames($str){
+        $sql = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%$str%'";
+        $sth = $this->dbs->prepare($sql);
+        $sth->execute();
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $results = $sth->fetchAll();
+        return $results;
+    }
 }
 
 function checkIfUserIsLogged() {
@@ -196,6 +205,40 @@ function wordsTranslation( $word ){
             return 'Михельське';
         case 'osvitlenia':
             return 'Освітлення';
+        case 'proridzuvania':
+            return 'Проріджування';
+        case 'golovnekorystuvania':
+            return 'Головне користування';
+        case 'inshibezlisgosp':
+            return 'інші рубки не повязані з веденням лісового господарства';
+        case 'inshizlisgosp':
+            return 'Інші рубки повязані з веденням лісового господарства';
+        case 'prochidna':
+            return 'Прохідна';
+        case 'rozchyshcheniaelektroperedach':
+            return 'Розчищення лінії електропередач';
+        case 'rozhyraniadorogy':
+            return 'Розширення дороги';
+        case 'rozrubkakvartalnychlinij':
+            return 'Розрубка квартальних ліній';
+        case 'sucilnasanitarna':
+            return 'Суцільна санітарна';
+        case 'vybirkovasanitarna':
+            return 'Вибіркова санітарна';
+        case 'lutarskie':
+            return 'Лютарське';
+        case 'bilohirskie':
+            return 'Білогірське';
+        case 'gurshchanskie':
+            return 'Гурщанське';
+        case 'klynovetskie':
+            return 'Клиновецьке';
+        case 'kunivskie':
+            return 'Кунівське';
+        case 'pluznianskie':
+            return 'Плужнянське';
+        case 'pokoshchivskie':
+            return 'Покощівське';
         default:
             return $word;
     }
@@ -374,6 +417,7 @@ function totalBySortymentInRow($db_connection, $rubka_arg, $lisnyctwo_arg){
         $single_row_totals_sortyments = [];
         $row_id = $row['id'];
         $sortyments = array(
+            'total' => 0,
             'dilova' => 0,
             'a' => 0,
             'b' => 0,
@@ -387,6 +431,7 @@ function totalBySortymentInRow($db_connection, $rubka_arg, $lisnyctwo_arg){
             $item_key_sortyment = isset($strArray[1]) ? $strArray[1] : '';
             if(isset($sortyments[$item_key_sortyment])){
                 $single_row_totals_sortyments[$item_key_sortyment] = isset($single_row_totals_sortyments[$item_key_sortyment]) ? $single_row_totals_sortyments[$item_key_sortyment] + $item_value : $item_value;
+                $single_row_totals_sortyments['total'] = isset($single_row_totals_sortyments['total']) ? $single_row_totals_sortyments['total'] + $item_value : $item_value;
                 if($item_key_sortyment == 'a' || $item_key_sortyment == 'b' || $item_key_sortyment == 'c' || $item_key_sortyment == 'd'){
                     $single_row_totals_sortyments['dilova'] = isset($single_row_totals_sortyments['dilova']) ? $single_row_totals_sortyments['dilova'] + $item_value : $item_value;
                 }
@@ -400,6 +445,7 @@ function totalBySortymentInRow($db_connection, $rubka_arg, $lisnyctwo_arg){
 function totalBySortyment($db_connection, $rubka_arg, $lisnyctwo_arg) {
     $table_data = $db_connection->getData($rubka_arg . '_' . $lisnyctwo_arg);
     $total = array(
+        'total' => 0,
         'dilova' => 0,
         'a' => 0,
         'b' => 0,
@@ -415,6 +461,8 @@ function totalBySortyment($db_connection, $rubka_arg, $lisnyctwo_arg) {
             $total[$item_key] = round($value, 4);
         }
     }
+    $total['total'] = $total['dilova'] + $total['pv'] + $total['np'];
+    console_log($total);
     return($total);
 }
 
@@ -511,5 +559,9 @@ function getHighestValue($db_connection,$table_name,$column_name){
     foreach($results as $row){
         $all_values[] = $row[$column_name];
     }
-    return max($all_values);
+    if(!$all_values){
+        return 1;
+    } else {
+        return max($all_values);
+    }
 };
