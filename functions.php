@@ -145,6 +145,15 @@ class General {
         $results = $sth->fetchAll();
         return $results;
     }
+    
+    public function getRubky($table_name){
+        $sql = "SELECT `kvartal`, `vydil` FROM `$table_name` WHERE 1";
+        $sth = $this->dbs->prepare($sql);
+        $sth->execute();
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $results = $sth->fetchAll();
+        return array_unique($results, SORT_REGULAR);
+    }
 }
 
 function checkIfUserIsLogged() {

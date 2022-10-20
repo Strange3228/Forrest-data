@@ -109,4 +109,50 @@ $(document).ready(function () {
       });
     }
   });
+
+  let rubky = [];
+  if ($("#rubky").length) {
+    $("#rubky .rubka").each(function () {
+      rubky.push([
+        $(this).find(".rubka_kv").text(),
+        $(this).find(".rubka_vy").text(),
+      ]);
+    });
+  }
+  $(".filter_kvartals").on("change", function () {
+    $(".row-data").removeClass("hidden-row");
+    $(".row-data").removeClass("hidden-row-imp");
+    $(".filter_vydils option").remove();
+    if ($(this).val() != "") {
+      let value = $(this).val();
+      $(".filter_vydils").append(`<option value="">Виділ...</option>`);
+      $(".filter_vydils").removeClass("hidden");
+      $(".row-data").each(function () {
+        if ($(this).data("kwartal") != value) {
+          $(this).addClass("hidden-row");
+        }
+      });
+      rubky.forEach((rubka) => {
+        if (rubka[0] == $(this).val()) {
+          $(".filter_vydils").append(
+            `<option value="${rubka[1]}">${rubka[1]}</option>`
+          );
+        }
+      });
+    } else {
+      $(".filter_vydils").addClass("hidden");
+      $(".filter_vydils option").removeClass("hidden_option");
+    }
+  });
+  $(".filter_vydils").on("change", function () {
+    $(".row-data").removeClass("hidden-row-imp");
+    if ($(this).val() != "") {
+      let value = $(this).val();
+      $(".row-data").each(function () {
+        if ($(this).data("vydil") != value) {
+          $(this).addClass("hidden-row-imp");
+        }
+      });
+    }
+  });
 });

@@ -633,3 +633,36 @@ select {
   border-radius: 10px;
   text-decoration: underline;
 }
+
+.table_filters .hidden {
+  pointer-events: none;
+  width: 0px;
+  overflow: hidden;
+  opacity: 0;
+}
+.table_filters select {
+  transition: all 0.3s ease;
+  opacity: 1;
+  width: 200px;
+  margin-top: 0;
+}
+.hidden_block {
+  max-height: 0;
+  overflow: hidden;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.row-data.hidden-row {
+  display: none;
+}
+.row-data.hidden-row-imp {
+  display: none;
+}
+.table_filters {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
