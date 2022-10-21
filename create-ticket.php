@@ -19,6 +19,34 @@
             <div class="create_ticket_data_wrapper">
                 <div class="create_ticket_data_single">
                     <div class="create_ticket_data_single__left">
+                        <p>Рубка</p>
+                    </div>
+                    <div class="create_ticket_data_single__right">
+                        <div class="create_ticket_input_box">
+                            <label for="lisnyctwo">Лісництво</label>
+                            <select name="lisnyctwo" id="lisnyctwo">
+                                <option value="bilohirskie" <?php if($_GET['lisnyctwo']=='bilohirskie'){echo 'selected';} ?>>Білогірське</option>
+                                <option value="gurshchanskie" <?php if($_GET['lisnyctwo']=='gurshchanskie'){echo 'selected';} ?>>Гурщанське</option>
+                                <option value="klynovetskie" <?php if($_GET['lisnyctwo']=='klynovetskie'){echo 'selected';} ?>>Клиновецьке</option>
+                                <option value="kunivskie" <?php if($_GET['lisnyctwo']=='kunivskie'){echo 'selected';} ?>>Кунівське</option>
+                                <option value="lutarskie" <?php if($_GET['lisnyctwo']=='lutarskie'){echo 'selected';} ?>>Лютарське</option>
+                                <option value="myhelskie" <?php if($_GET['lisnyctwo']=='myhelskie'){echo 'selected';} ?>>Михельське</option>
+                                <option value="pluznianskie" <?php if($_GET['lisnyctwo']=='pluznianskie'){echo 'selected';} ?>>Плужнянське</option>
+                                <option value="pokoshchivskie" <?php if($_GET['lisnyctwo']=='pokoshchivskie'){echo 'selected';} ?>>Покощівське</option>
+                            </select>
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="kvartal">Квартал</label>
+                            <input type="text" value="<?php if($_GET['kvartal']!=''){echo $_GET['kvartal'];} else {echo 0;} ?>" name="kvartal">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="vydil">Виділ</label>
+                            <input type="text" value="<?php if($_GET['vydil']!=''){echo $_GET['vydil'];} else {echo 0;} ?>" name="vydil">
+                        </div>
+                    </div>
+                </div>
+                <div class="create_ticket_data_single">
+                    <div class="create_ticket_data_single__left">
                         <p>Сосна</p>
                     </div>
                     <div class="create_ticket_data_single__right">

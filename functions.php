@@ -486,8 +486,8 @@ function getKvytkyForLisnyctwo($db_connection, $table_name){
     return $kvytky_numbers;
 }
 
-function getKvytokData($db_connection, $kvytok_number){
-    $sql = "SELECT * FROM `lisorubni_kvytky` WHERE `number`=$kvytok_number";
+function getKvytokData($db_connection, $kvartal, $vydil){
+    $sql = "SELECT * FROM `lisorubni_kvytky` WHERE `kvartal`=$kvartal AND `vydil`=$vydil";
     $sth = $db_connection->dbs->prepare($sql);
     $sth->execute();
     $sth->setFetchMode(PDO::FETCH_ASSOC);
@@ -496,8 +496,8 @@ function getKvytokData($db_connection, $kvytok_number){
     return $results;
 }
 
-function getDataByKvytokNumber($db_connection,$table_name,$kvytok_number){
-    $sql = "SELECT * FROM `$table_name` WHERE `kvytok_number`=$kvytok_number";
+function getDataByKvytokNumber($db_connection,$table_name,$kvartal, $vydil){
+    $sql = "SELECT * FROM `$table_name` WHERE `kvartal`=$kvartal AND `vydil`=$vydil";
     $sth = $db_connection->dbs->prepare($sql);
     $sth->execute();
     $sth->setFetchMode(PDO::FETCH_ASSOC);

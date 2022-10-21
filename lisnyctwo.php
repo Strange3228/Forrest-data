@@ -237,44 +237,46 @@ console_log($rubky) ?>
                     <img src="./img/acc_arr.svg" alt="">
                 </div>
                 <div class="accordeon_content">
-                    <div class="accordeon__table" id="view_full_table">
+                    <div class="accordeon__table ostatky_table" id="view_full_table">
                         <?php
-                            $kvytky_numbers = getKvytkyForLisnyctwo($db_connection, $_GET['rubka'] . '_' . $_GET['lisnyctwo']);
-                            foreach($kvytky_numbers as $single_kvytok){
-                                $kvytokData = getKvytokData($db_connection, $single_kvytok);
-                                $dataByKvytokNumber = getDataByKvytokNumber($db_connection, $_GET['rubka'] . '_' . $_GET['lisnyctwo'], $single_kvytok);
-                                $filteredDataTotals = getTotalPorodyAfterFilterKvytok($dataByKvytokNumber);
-                                $differences = []; ?>
-                                <p class="numer_kvytka">Номер Лісорубного Квитка: №<?php echo $single_kvytok; ?></p>
-                                <table class="ostatky_table">
-                                    <thead>
-                                      <tr>
-                                        <th>Сосна</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Ялина</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Дуб</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Береза</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Вільха</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Граб</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Ясен</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Клен</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Осика</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Липа</th>
-                                        <th>B т.ч. діл</th>
-                                        <th>Інші</th>
-                                        <th>B т.ч. діл</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="ostatky_table--totals">
+                            foreach($rubky as $rubka){
+                                $kvytokData = getKvytokData($db_connection, $rubka['kvartal'], $rubka['vydil']);
+                                console_log($kvytokData);
+                                if(!empty($kvytokData)){
+                                    $dataByKvytokNumber = getDataByKvytokNumber($db_connection, $_GET['rubka'] . '_' . $_GET['lisnyctwo'], $rubka['kvartal'], $rubka['vydil']);
+                                    $filteredDataTotals = getTotalPorodyAfterFilterKvytok($dataByKvytokNumber);
+                                    $differences = []; ?>
+                                    <p class="numer_kvytka">Лісорубний Квиток для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?></p>
+                                    <div class="table_wrapp">
+                                    <table class="ostatky_table">
+                                        <thead>
+                                          <tr>
+                                            <th>Сосна</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Ялина</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Дуб</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Береза</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Вільха</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Граб</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Ясен</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Клен</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Осика</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Липа</th>
+                                            <th>B т.ч. діл</th>
+                                            <th>Інші</th>
+                                            <th>B т.ч. діл</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="ostatky_table--totals">
                                             <td>
                                                 <?php $difference=$filteredDataTotals['all']['sosna'] - $kvytokData[0]['sosna']; echo $difference; ?>
                                             </td>
@@ -341,77 +343,84 @@ console_log($rubky) ?>
                                             <td>
                                                 <?php $difference=$filteredDataTotals['dilova']['inshe'] - $kvytokData[0]['inshe_dilova']; echo $difference;?>
                                             </td>
-                                        </tr>
-                                        <tr class="ostatky_table--percentage">
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['sosna'] - $kvytokData[0]['sosna'])/($kvytokData[0]['sosna']+0.00001))*100,2).'%'; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['sosna'] - $kvytokData[0]['sosna_dilova'])/($kvytokData[0]['sosna_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['jalyna'] - $kvytokData[0]['jalyna'])/($kvytokData[0]['jalyna']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['jalyna'] - $kvytokData[0]['jalyna_dilova'])/($kvytokData[0]['jalyna_dilova']+0.00001))*100,2).'%'?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['dub'] - $kvytokData[0]['dub'])/($kvytokData[0]['dub']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['dub'] - $kvytokData[0]['dub_dilova'])/($kvytokData[0]['dub_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['bereza'] - $kvytokData[0]['bereza'])/($kvytokData[0]['bereza']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['bereza'] - $kvytokData[0]['bereza_dilova'])/($kvytokData[0]['bereza_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['vilha'] - $kvytokData[0]['vilha'])/($kvytokData[0]['vilha']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['vilha'] - $kvytokData[0]['vilha_dilova'])/($kvytokData[0]['vilha_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['grab'] - $kvytokData[0]['grab'])/($kvytokData[0]['grab']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['grab'] - $kvytokData[0]['grab_dilova'])/($kvytokData[0]['grab_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['jasen'] - $kvytokData[0]['jasen'])/($kvytokData[0]['jasen']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['jasen'] - $kvytokData[0]['jasen_dilova'])/($kvytokData[0]['jasen_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['klen'] - $kvytokData[0]['klen'])/($kvytokData[0]['klen']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['klen'] - $kvytokData[0]['klen_dilova'])/($kvytokData[0]['klen_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['osyka'] - $kvytokData[0]['osyka'])/($kvytokData[0]['osyka']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['osyka'] - $kvytokData[0]['osyka_dilova'])/($kvytokData[0]['osyka_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['lypa'] - $kvytokData[0]['lypa'])/($kvytokData[0]['lypa']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['lypa'] - $kvytokData[0]['lypa_dilova'])/($kvytokData[0]['lypa_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['all']['inshe'] - $kvytokData[0]['inshe'])/($kvytokData[0]['inshe']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($filteredDataTotals['dilova']['inshe'] - $kvytokData[0]['inshe_dilova'])/($kvytokData[0]['inshe_dilova']+0.00001))*100,2).'%';?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </tr>
+                                            <tr class="ostatky_table--percentage">
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['sosna'] - $kvytokData[0]['sosna'])/($kvytokData[0]['sosna']+0.00001))*100,2).'%'; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['sosna'] - $kvytokData[0]['sosna_dilova'])/($kvytokData[0]['sosna_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['jalyna'] - $kvytokData[0]['jalyna'])/($kvytokData[0]['jalyna']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['jalyna'] - $kvytokData[0]['jalyna_dilova'])/($kvytokData[0]['jalyna_dilova']+0.00001))*100,2).'%'?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['dub'] - $kvytokData[0]['dub'])/($kvytokData[0]['dub']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['dub'] - $kvytokData[0]['dub_dilova'])/($kvytokData[0]['dub_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['bereza'] - $kvytokData[0]['bereza'])/($kvytokData[0]['bereza']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['bereza'] - $kvytokData[0]['bereza_dilova'])/($kvytokData[0]['bereza_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['vilha'] - $kvytokData[0]['vilha'])/($kvytokData[0]['vilha']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['vilha'] - $kvytokData[0]['vilha_dilova'])/($kvytokData[0]['vilha_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['grab'] - $kvytokData[0]['grab'])/($kvytokData[0]['grab']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['grab'] - $kvytokData[0]['grab_dilova'])/($kvytokData[0]['grab_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['jasen'] - $kvytokData[0]['jasen'])/($kvytokData[0]['jasen']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['jasen'] - $kvytokData[0]['jasen_dilova'])/($kvytokData[0]['jasen_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['klen'] - $kvytokData[0]['klen'])/($kvytokData[0]['klen']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['klen'] - $kvytokData[0]['klen_dilova'])/($kvytokData[0]['klen_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['osyka'] - $kvytokData[0]['osyka'])/($kvytokData[0]['osyka']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['osyka'] - $kvytokData[0]['osyka_dilova'])/($kvytokData[0]['osyka_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['lypa'] - $kvytokData[0]['lypa'])/($kvytokData[0]['lypa']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['lypa'] - $kvytokData[0]['lypa_dilova'])/($kvytokData[0]['lypa_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['all']['inshe'] - $kvytokData[0]['inshe'])/($kvytokData[0]['inshe']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($filteredDataTotals['dilova']['inshe'] - $kvytokData[0]['inshe_dilova'])/($kvytokData[0]['inshe_dilova']+0.00001))*100,2).'%';?>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="kvytok_not_found">
+                                        <p class="">Для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?> не було знайдено квитка</p>
+                                        <a href="create-ticket.php?lisnyctwo=<?php echo $_GET['lisnyctwo'] ?>&kvartal=<?php echo $rubka['kvartal'] ?>&vydil=<?php echo $rubka['vydil'] ?>">Створити</a>
+                                    </div>
+                                <?php } ?>
                             <?php }
                         ?>
                     </div>
@@ -424,55 +433,63 @@ console_log($rubky) ?>
                     <img src="./img/acc_arr.svg" alt="">
                 </div>
                 <div class="accordeon_content">
-                    <div class="accordeon__table" id="view_full_table">
+                    <div class="accordeon__table ostatky_table" id="view_full_table">
                     <?php
-                            $kvytky_numbers = getKvytkyForLisnyctwo($db_connection, $_GET['rubka'] . '_' . $_GET['lisnyctwo']);
-                            foreach($kvytky_numbers as $single_kvytok){
-                                $kvytokData = getKvytokData($db_connection, $single_kvytok);
-                                $dataByKvytokNumber = getDataByKvytokNumber($db_connection, $_GET['rubka'] . '_' . $_GET['lisnyctwo'], $single_kvytok);
-                                $filteredDataTotals = getTotalPorodyAfterFilterKvytok($dataByKvytokNumber);
-                                $differences = []; ?>
-                                <p class="numer_kvytka">Номер Лісорубного Квитка: №<?php echo $single_kvytok; ?></p>
-                                <table class="ostatky_table">
-                                    <thead>
-                                      <tr>
-                                        <th>Хворост Ic</th>
-                                        <th>Хворост IIc</th>
-                                        <th>Хворост IIIc</th>
-                                        <th>Всього</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="ostatky_table--totals">
-                                            <td>
-                                                <?php $difference=$chvorost1 - $kvytokData[0]['chvorost_1c']; echo $difference; ?>
-                                            </td>
-                                            <td>
-                                                <?php $difference=$chvorost2 - $kvytokData[0]['chvorost_2c']; echo $difference;?>
-                                            </td>
-                                            <td>
-                                                <?php $difference=$chvorost3 - $kvytokData[0]['chvorost_3c']; echo $difference;?>
-                                            </td>
-                                            <td>
-                                                <?php $difference=$chvorost_total - $kvytokData[0]['total_chvorost']; echo $difference;?>
-                                            </td>
-                                        </tr>
-                                        <tr class="ostatky_table--percentage">
-                                            <td>
-                                                <?php echo round((($chvorost1 - $kvytokData[0]['chvorost_1c'])/($kvytokData[0]['chvorost_1c']+0.00001))*100,2).'%'; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($chvorost2 - $kvytokData[0]['chvorost_2c'])/($kvytokData[0]['chvorost_2c']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($chvorost3 - $kvytokData[0]['chvorost_3c'])/($kvytokData[0]['chvorost_3c']+0.00001))*100,2).'%';?>
-                                            </td>
-                                            <td>
-                                                <?php echo round((($chvorost_total - $kvytokData[0]['total_chvorost'])/($kvytokData[0]['total_chvorost']+0.00001))*100,2).'%'?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            foreach($rubky as $rubka){
+                                $kvytokData = getKvytokData($db_connection, $rubka['kvartal'], $rubka['vydil']);
+                                if(!empty($kvytokData)){
+                                    $dataByKvytokNumber = getDataByKvytokNumber($db_connection, $_GET['rubka'] . '_' . $_GET['lisnyctwo'], $rubka['kvartal'], $rubka['vydil']);
+                                    $filteredDataTotals = getTotalPorodyAfterFilterKvytok($dataByKvytokNumber);
+                                    $differences = []; ?>
+                                    <p class="numer_kvytka">Лісорубний Квиток для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?></p>
+                                    <div class="table_wrapp">
+                                    <table class="ostatky_table">
+                                        <thead>
+                                          <tr>
+                                            <th>Хворост Ic</th>
+                                            <th>Хворост IIc</th>
+                                            <th>Хворост IIIc</th>
+                                            <th>Всього</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="ostatky_table--totals">
+                                                <td>
+                                                    <?php $difference=$chvorost1 - $kvytokData[0]['chvorost_1c']; echo $difference; ?>
+                                                </td>
+                                                <td>
+                                                    <?php $difference=$chvorost2 - $kvytokData[0]['chvorost_2c']; echo $difference;?>
+                                                </td>
+                                                <td>
+                                                    <?php $difference=$chvorost3 - $kvytokData[0]['chvorost_3c']; echo $difference;?>
+                                                </td>
+                                                <td>
+                                                    <?php $difference=$chvorost_total - $kvytokData[0]['total_chvorost']; echo $difference;?>
+                                                </td>
+                                            </tr>
+                                            <tr class="ostatky_table--percentage">
+                                                <td>
+                                                    <?php echo round((($chvorost1 - $kvytokData[0]['chvorost_1c'])/($kvytokData[0]['chvorost_1c']+0.00001))*100,2).'%'; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($chvorost2 - $kvytokData[0]['chvorost_2c'])/($kvytokData[0]['chvorost_2c']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($chvorost3 - $kvytokData[0]['chvorost_3c'])/($kvytokData[0]['chvorost_3c']+0.00001))*100,2).'%';?>
+                                                </td>
+                                                <td>
+                                                    <?php echo round((($chvorost_total - $kvytokData[0]['total_chvorost'])/($kvytokData[0]['total_chvorost']+0.00001))*100,2).'%'?>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                <?php } else {  ?>
+                                    <div class="kvytok_not_found">
+                                        <p class="">Для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?> не було знайдено квитка</p>
+                                        <a href="create-ticket.php?lisnyctwo=<?php echo $_GET['lisnyctwo'] ?>&kvartal=<?php echo $rubka['kvartal'] ?>&vydil=<?php echo $rubka['vydil'] ?>">Створити</a>
+                                    </div>
+                                <?php }; ?>
                             <?php }
                         ?>
                     </div>

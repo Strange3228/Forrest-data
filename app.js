@@ -89,6 +89,7 @@ $(document).ready(function () {
         url: $(this).attr("action"),
         data: formData,
         success: function (response) {
+          console.log(response);
           $(".create_ticket__submit").text("Підтвердити");
           if (response.includes("data_added")) {
             alert("Данні успішно додані");
