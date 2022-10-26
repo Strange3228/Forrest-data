@@ -177,23 +177,16 @@ $(document).ready(function () {
       vydil = 0;
     let prevKvartal = null,
       prevVydil = null;
-    console.log("new table");
     rows.each(function (index) {
       let cells = $(this).find("td");
-      console.log(cells);
       kvartal = $(this).data("kwartal");
       vydil = $(this).data("vydil");
       if (prevKvartal === null) {
         prevKvartal = kvartal;
-        console.log("Hey its traitor");
       }
       if (prevVydil === null) {
         prevVydil = vydil;
       }
-      console.log(kvartal);
-      console.log(prevKvartal);
-      console.log(vydil);
-      console.log(prevVydil);
       if (kvartal == prevKvartal && vydil == prevVydil) {
         cells.each(function (index) {
           if (sums[index]) {
@@ -204,7 +197,6 @@ $(document).ready(function () {
             sums[index] = parseFloat($(this).text());
           }
         });
-        console.log(sums);
       } else {
         sums.forEach((element, index) => {
           if (index >= 2) {
@@ -229,7 +221,6 @@ $(document).ready(function () {
             sums[index] = parseFloat($(this).text());
           }
         });
-        console.log(sums);
       }
       prevKvartal = kvartal;
       prevVydil = vydil;
