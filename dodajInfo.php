@@ -51,14 +51,6 @@
                             <input type="text" value="0" name="vydil">
                         </div>
                         <div class="create_ticket_input_box">
-                            <label for="lisorubnyj_kvytok">Лісорубний квиток №</label>
-                            <select name="lisorubnyj_kvytok" id="lisorubnyj_kvytok">
-                                <?php foreach($table_data_tickets as $row) { ?>
-                                    <option value="<?php echo $row['number'] ?>"><?php echo $row['number'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="create_ticket_input_box">
                             <label for="ploshcha">Площа</label>
                             <input type="text" value="0" name="ploshcha">
                         </div>

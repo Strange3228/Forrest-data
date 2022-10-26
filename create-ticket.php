@@ -25,23 +25,23 @@
                         <div class="create_ticket_input_box">
                             <label for="lisnyctwo">Лісництво</label>
                             <select name="lisnyctwo" id="lisnyctwo">
-                                <option value="bilohirskie" <?php if($_GET['lisnyctwo']=='bilohirskie'){echo 'selected';} ?>>Білогірське</option>
-                                <option value="gurshchanskie" <?php if($_GET['lisnyctwo']=='gurshchanskie'){echo 'selected';} ?>>Гурщанське</option>
-                                <option value="klynovetskie" <?php if($_GET['lisnyctwo']=='klynovetskie'){echo 'selected';} ?>>Клиновецьке</option>
-                                <option value="kunivskie" <?php if($_GET['lisnyctwo']=='kunivskie'){echo 'selected';} ?>>Кунівське</option>
-                                <option value="lutarskie" <?php if($_GET['lisnyctwo']=='lutarskie'){echo 'selected';} ?>>Лютарське</option>
-                                <option value="myhelskie" <?php if($_GET['lisnyctwo']=='myhelskie'){echo 'selected';} ?>>Михельське</option>
-                                <option value="pluznianskie" <?php if($_GET['lisnyctwo']=='pluznianskie'){echo 'selected';} ?>>Плужнянське</option>
-                                <option value="pokoshchivskie" <?php if($_GET['lisnyctwo']=='pokoshchivskie'){echo 'selected';} ?>>Покощівське</option>
+                                <option value="bilohirskie" <?php if(isset($_GET['lisnyctwo']) && $_GET['lisnyctwo']=='bilohirskie'){echo 'selected';} ?>>Білогірське</option>
+                                <option value="gurshchanskie" <?php if(isset($_GET['lisnyctwo']) && $_GET['lisnyctwo']=='gurshchanskie'){echo 'selected';} ?>>Гурщанське</option>
+                                <option value="klynovetskie" <?php if(isset($_GET['lisnyctwo']) && $_GET['lisnyctwo']=='klynovetskie'){echo 'selected';} ?>>Клиновецьке</option>
+                                <option value="kunivskie" <?php if(isset($_GET['lisnyctwo']) && $_GET['lisnyctwo']=='kunivskie'){echo 'selected';} ?>>Кунівське</option>
+                                <option value="lutarskie" <?php if(isset($_GET['lisnyctwo']) && $_GET['lisnyctwo']=='lutarskie'){echo 'selected';} ?>>Лютарське</option>
+                                <option value="myhelskie" <?php if(isset($_GET['lisnyctwo']) && $_GET['lisnyctwo']=='myhelskie'){echo 'selected';} ?>>Михельське</option>
+                                <option value="pluznianskie" <?php if(isset($_GET['lisnyctwo']) && $_GET['lisnyctwo']=='pluznianskie'){echo 'selected';} ?>>Плужнянське</option>
+                                <option value="pokoshchivskie" <?php if(isset($_GET['lisnyctwo']) && $_GET['lisnyctwo']=='pokoshchivskie'){echo 'selected';} ?>>Покощівське</option>
                             </select>
                         </div>
                         <div class="create_ticket_input_box">
                             <label for="kvartal">Квартал</label>
-                            <input type="text" value="<?php if($_GET['kvartal']!=''){echo $_GET['kvartal'];} else {echo 0;} ?>" name="kvartal">
+                            <input type="text" value="<?php if(isset($_GET['kvartal'])){if($_GET['kvartal']!=''){echo $_GET['kvartal'];} else {echo 0;}} ?>" name="kvartal">
                         </div>
                         <div class="create_ticket_input_box">
                             <label for="vydil">Виділ</label>
-                            <input type="text" value="<?php if($_GET['vydil']!=''){echo $_GET['vydil'];} else {echo 0;} ?>" name="vydil">
+                            <input type="text" value="<?php if(isset($_GET['kvartal'])){if($_GET['vydil']!=''){echo $_GET['vydil'];} else {echo 0;}} ?>" name="vydil">
                         </div>
                     </div>
                 </div>

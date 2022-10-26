@@ -1,9 +1,7 @@
 <?php include('parts/head.php');?>
 <?php include('functions.php');?>
 <?php checkIfUserIsLogged(); ?>
-<?php $db_connection = new General;
-    console_log($db_connection->getTableNames('golov'));
-?>
+<?php $db_connection = new General;?>
 
 
 <section class="page_titles">
@@ -95,12 +93,12 @@
                                 <?php }; ?>
                             </div>
                         </div>
-
                     </div>
-
                     <div class="archive_lisnyctwa_item__btns">
                         <a href="dodajInfo.php?rubka=<?php echo $_GET['rubka']; ?>&lisnyctwo=<?php echo $table_lisnyctwo; ?>" class="archive_lisnyctwa_item__btns-edit">Додати данні</a>
-                        <a href="lisnyctwo.php?rubka=<?php echo $_GET['rubka']; ?>&lisnyctwo=<?php echo $table_lisnyctwo; ?>" class="archive_lisnyctwa_item__btns-view">Детальніше</a>
+                        <?php if(!$db_connection->checkIfTableIsEmpty($_GET['rubka'].'_'.$table_lisnyctwo)){ ?>
+                            <a href="lisnyctwo.php?rubka=<?php echo $_GET['rubka']; ?>&lisnyctwo=<?php echo $table_lisnyctwo; ?>" class="archive_lisnyctwa_item__btns-view">Детальніше</a>
+                        <?php } ?>
                     </div>
                 </div>
             <?php

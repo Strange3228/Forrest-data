@@ -696,4 +696,26 @@ select {
   padding: 10px 20px;
   border-radius: 15px;
   cursor: pointer;
+  margin-bottom: 20px;
+  display: block;
+}
+.table_is_empty_notification {
+  background: #05386b;
+  color: white;
+  max-width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 30px;
+  margin: auto;
+  border-radius: 15px;
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  margin-top: 50px;
+}
+.table_is_empty_notification .archive_lisnyctwa_item__btns-edit {
+  padding: 10px;
+  border-radius: 15px;
 }

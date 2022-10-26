@@ -59,7 +59,7 @@ class General {
         }
         if (!is_null($and)) {
             foreach ($and as $andKey => $andVal) {
-                $sql .= " $where `$column`.$andKey=:$andKey";
+                $sql .= " $where `$column`.$andKey=:$andVal";
                 $where = 'AND';
             }
         }
@@ -153,6 +153,37 @@ class General {
         $sth->setFetchMode(PDO::FETCH_ASSOC);
         $results = $sth->fetchAll();
         return array_unique($results, SORT_REGULAR);
+    }
+
+    public function checkIfTableIsEmpty($table_name){
+        $sql = "SELECT * FROM `$table_name`";
+        $sth = $this->dbs->prepare($sql);
+        $sth->execute();
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $results = $sth->fetchAll();
+        if(empty($results)){
+            return true;
+        }
+        return false;
+    }
+
+    public function getDataByColumns($table_name, $columns = null){
+        $sql = "SELECT * FROM `$table_name`";
+        if(!is_null($columns)){
+            $where = ' WHERE ';
+            $sql .= $where;
+            foreach($columns as $column=>$value){
+                $sql .= "`$column`=$value";
+            };
+        };
+        $sth = $this->dbs->prepare($sql);
+        $sth->execute();
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $results = $sth->fetchAll();
+        if(!empty($results)){
+            return $results;
+        }
+        return false;
     }
 }
 
@@ -471,7 +502,6 @@ function totalBySortyment($db_connection, $rubka_arg, $lisnyctwo_arg) {
         }
     }
     $total['total'] = $total['dilova'] + $total['pv'] + $total['np'];
-    console_log($total);
     return($total);
 }
 
@@ -486,13 +516,15 @@ function getKvytkyForLisnyctwo($db_connection, $table_name){
     return $kvytky_numbers;
 }
 
-function getKvytokData($db_connection, $kvartal, $vydil){
-    $sql = "SELECT * FROM `lisorubni_kvytky` WHERE `kvartal`=$kvartal AND `vydil`=$vydil";
+function getKvytokData($db_connection,$lisnyctwo, $kvartal, $vydil){
+    $sql = "SELECT * FROM `lisorubni_kvytky` WHERE `kvartal`=$kvartal AND `vydil`=$vydil AND `lisnyctwo`='$lisnyctwo'";
     $sth = $db_connection->dbs->prepare($sql);
     $sth->execute();
     $sth->setFetchMode(PDO::FETCH_ASSOC);
     $results = $sth->fetchAll();
-
+    if(empty($results)){
+        return false;
+    }
     return $results;
 }
 

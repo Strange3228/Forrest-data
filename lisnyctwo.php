@@ -2,8 +2,7 @@
 <?php include('functions.php');?>
 <?php checkIfUserIsLogged(); ?>
 <?php $db_connection = new General; ?>
-<?php $rubky = $db_connection->getRubky($_GET['rubka'] . '_' . $_GET['lisnyctwo']);
-console_log($rubky) ?>
+<?php $rubky = $db_connection->getRubky($_GET['rubka'] . '_' . $_GET['lisnyctwo']); ?>
 <?php $table_data = $db_connection->getData($_GET['rubka'] . '_' . $_GET['lisnyctwo']); ?>
 
 <section class="hidden_block" id="rubky">
@@ -13,8 +12,8 @@ console_log($rubky) ?>
             <p class="rubka_vy"><?php echo $rubka['vydil']; ?></p>
         </div>
     <?php } ?>
+    
 </section>
-
 <section class="page_titles">
   <div class="container">
     <h1 class="page__title">Тип Рубки: <?php echo wordsTranslation($_GET['rubka']); ?></h1>
@@ -25,6 +24,7 @@ console_log($rubky) ?>
 
 <section class="single_edit">
     <div class="container">
+        <?php if(!$db_connection->checkIfTableIsEmpty($_GET['rubka'].'_'.$_GET['lisnyctwo'])){ ?>
         <div class="accordeons">
             <div class="table_filters" id="filters">
                 <p>Фільтруй по: </p>
@@ -40,6 +40,7 @@ console_log($rubky) ?>
                     <option value="">Виділ...</option>
                 </select>
             </div>
+            
             <!---------------------------- PORODY DEREVA ----------------------->
             <div class="accordeon">
                 <div class="accordeon__main">
@@ -51,7 +52,7 @@ console_log($rubky) ?>
                         <?php
                             $allowedCoreTypes = allowedCoreDataNames();
                         ?>
-                        <table>
+                        <table class="data_table">
                             <thead>
                               <tr>
                                 <th>Квартал</th>
@@ -77,38 +78,41 @@ console_log($rubky) ?>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr class="total_row">
-                                <td colspan="2">Всього</td>
                                 <?php
-                                $totalPorody = TotalEveryType($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
-                                $columns_total = totalInColumn($db_connection, $totalPorody, null, $_GET['rubka'], $_GET['lisnyctwo']);
-                                foreach($columns_total as $key => $value) { ?>
-                                    <td class="<?php if(strpos($key, 'sectiontotal')) {echo 'section_total'; } ?>"><?php echo $value; ?></td>
-                                <?php }
+                                    $rows_total = totalSinglePorodaInLine($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
                                 ?>
-                              </tr>
-                              <?php
-                                $rows_total = totalSinglePorodaInLine($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
-                              ?>
-                              <?php foreach($table_data as $row) { $row_id = $row['id']; $previousWord = ''; ?>
-                                <tr class="row-data" data-kwartal=<?php echo $row['kvartal']; ?> data-vydil=<?php echo $row['vydil']; ?>>
-                                    <td class="single_kvartal_number"><?php echo $row['kvartal']; ?></td>
-                                    <td class="single_vydil_number"><?php echo $row['vydil']; ?></td>
-                                    <?php foreach($row as $item_key => $item_value){
-                                        if(isset($allowedCoreTypes[strtok($item_key, '_')])) {
-                                        if(strtok($item_key, '_') != $previousWord && $item_key != 'realizowano_liquidu' && $item_key != 'oczystka_lisosiky' && $item_key != 'pidhotovchi_roboty' && $item_key != 'ploshcha' && $item_key != 'kvartal' && $item_key != 'vydil' && $item_key != 'id'){ 
-                                            $previousWord = strtok($item_key, '_'); ?>
-                                            <?php if(strtok($item_key, '_') != 'treliuvania') { ?>
-                                            <td class="row_items_total"><?php echo $rows_total[$row_id][$previousWord]; ?></td>
-                                            <?php } ?>
-                                            <td><?php echo $item_value; ?></td>
-                                        <?php } elseif($item_key != 'kvartal' && $item_key != 'vydil' && $item_key != 'id') { ?>
-                                            <td><?php echo $item_value; ?></td>
-                                        <?php }
-                                        }
-                                    };?> 
-                                </tr>
-                                <?php }; ?>
+                                <?php foreach($rubky as $rubka){ ?>
+                                    <tr class="total_row row-data" data-kwartal=<?php echo $rubka['kvartal']; ?> data-vydil=<?php echo $rubka['vydil']; ?>>
+                                        <td><?php echo $rubka['kvartal'] ?></td>
+                                        <td><?php echo $rubka['vydil'] ?></td>
+                                    </tr>
+                                    <?php
+                                        $rubka_data = (object)[
+                                            'kvartal' => $rubka['kvartal'] . ' AND ',
+                                            'vydil' => $rubka['vydil']
+                                        ];
+                                        $table_data_current = $db_connection->getDataByColumns($_GET['rubka'] . '_' . $_GET['lisnyctwo'],$rubka_data);
+                                    ?>
+                                    <?php foreach($table_data_current as $row) { $row_id = $row['id']; $previousWord = ''; ?>
+                                        <tr class="row-data row-data_js" data-kwartal=<?php echo $row['kvartal']; ?> data-vydil=<?php echo $row['vydil']; ?>>
+                                            <td class="single_kvartal_number empty_cell"></td>
+                                            <td class="single_vydil_number empty_cell"></td>
+                                            <?php foreach($row as $item_key => $item_value){
+                                                if(isset($allowedCoreTypes[strtok($item_key, '_')])) {
+                                                if(strtok($item_key, '_') != $previousWord && $item_key != 'realizowano_liquidu' && $item_key != 'oczystka_lisosiky' && $item_key != 'pidhotovchi_roboty' && $item_key != 'ploshcha' && $item_key != 'kvartal' && $item_key != 'vydil' && $item_key != 'id'){ 
+                                                    $previousWord = strtok($item_key, '_'); ?>
+                                                    <?php if(strtok($item_key, '_') != 'treliuvania') { ?>
+                                                    <td class="row_items_total"><?php echo $rows_total[$row_id][$previousWord]; ?></td>
+                                                    <?php } ?>
+                                                    <td><?php echo $item_value; ?></td>
+                                                <?php } elseif($item_key != 'kvartal' && $item_key != 'vydil' && $item_key != 'id') { ?>
+                                                    <td><?php echo $item_value; ?></td>
+                                                <?php }
+                                                }
+                                            };?> 
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -123,7 +127,7 @@ console_log($rubky) ?>
                 </div>
                 <div class="accordeon_content">
                     <div class="accordeon__table" id="view_full_table">
-                    <table>
+                    <table class="data_table">
                             <thead>
                               <tr>
                                 <th>Квартал</th>
@@ -135,36 +139,34 @@ console_log($rubky) ?>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr class="total_row">
-                                <td colspan="2">Всього</td>
-                                <?php
-                                    $totalPorody = TotalEveryType($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
-                                    $columns_total = totalInColumn($db_connection, $totalPorody, null, $_GET['rubka'], $_GET['lisnyctwo']);
-                                    $chvorost1 = $columns_total['chvorost_1c'];
-                                    $chvorost2 = $columns_total['chvorost_2c'];
-                                    $chvorost3 = $columns_total['chvorost_3c'];
-                                    $chvorost_total = $columns_total['chvorostsectiontotal'];
-                                ?>
-                                <td><?php echo $columns_total['chvorost_1c']; ?></td>
-                                <td><?php echo $columns_total['chvorost_2c']; ?></td>
-                                <td><?php echo $columns_total['chvorost_3c']; ?></td>
-                                <td><?php echo $columns_total['chvorostsectiontotal']; ?></td>
-                              </tr>
-                              <?php foreach($table_data as $row) { $row_id = $row['id']; $previousWord = ''; ?>
-                                <tr class="row-data" data-kwartal=<?php echo $row['kvartal']; ?> data-vydil=<?php echo $row['vydil']; ?>>
-                                    <td><?php echo $row['kvartal']; ?></td>
-                                    <td><?php echo $row['vydil']; ?></td>
-                                    <td><?php echo $row['chvorost_1c']; ?></td>
-                                    <td><?php echo $row['chvorost_2c']; ?></td>
-                                    <td><?php echo $row['chvorost_3c']; ?></td>
-                                    <td>
-                                        <?php
-                                        $total_chvorost_in_row = $row['chvorost_1c'] + $row['chvorost_2c'] + $row['chvorost_3c'];
-                                        echo $total_chvorost_in_row;
-                                        ?>
-                                    </td>
-                                </tr>
-                                <?php }; ?>
+                                <?php foreach($rubky as $rubka){ ?>
+                                    <tr class="total_row row-data" data-kwartal=<?php echo $rubka['kvartal']; ?> data-vydil=<?php echo $rubka['vydil']; ?>>
+                                        <td><?php echo $rubka['kvartal'] ?></td>
+                                        <td><?php echo $rubka['vydil'] ?></td>
+                                    </tr>
+                                    <?php
+                                        $rubka_data = (object)[
+                                            'kvartal' => $rubka['kvartal'] . ' AND ',
+                                            'vydil' => $rubka['vydil']
+                                        ];
+                                        $table_data_current = $db_connection->getDataByColumns($_GET['rubka'] . '_' . $_GET['lisnyctwo'],$rubka_data);
+                                    ?>
+                                    <?php foreach($table_data_current as $row) { $row_id = $row['id']; $previousWord = ''; ?>
+                                    <tr class="row-data row-data_js" data-kwartal=<?php echo $row['kvartal']; ?> data-vydil=<?php echo $row['vydil']; ?>>
+                                        <td></td>
+                                        <td></td>
+                                        <td><?php echo $row['chvorost_1c']; ?></td>
+                                        <td><?php echo $row['chvorost_2c']; ?></td>
+                                        <td><?php echo $row['chvorost_3c']; ?></td>
+                                        <td>
+                                            <?php
+                                            $total_chvorost_in_row = $row['chvorost_1c'] + $row['chvorost_2c'] + $row['chvorost_3c'];
+                                            echo $total_chvorost_in_row;
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -179,12 +181,12 @@ console_log($rubky) ?>
                 </div>
                 <div class="accordeon_content">
                     <div class="accordeon__table" id="view_full_table">
-                        <table style="width:100%; table-layout:fixed">
+                        <table class="data_table" style="width:100%; table-layout:fixed">
                             <thead>
                               <tr>
                                 <th>Квартал</th>
                                 <th>Виділ</th>
-                                <th class="total_row">Всього</th>
+                                <th class="">Всього</th>
                                 <th class="dilova_column">Ділова</th>
                                 <th>A</th>
                                 <th>B</th>
@@ -195,35 +197,37 @@ console_log($rubky) ?>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr class="total_row">
                                 <?php
                                     $totalSortyments = totalBySortyment($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
+                                    $totalBySortymentInRow = totalBySortymentInRow($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
                                 ?>
-                                <td colspan="2">Всього</td>
-                                <td class="total_row"><?php echo $totalSortyments['total']; ?></td>
-                                <td class="dilova_column"><?php echo $totalSortyments['dilova']; ?></td>
-                                <td><?php echo $totalSortyments['a']; ?></td>
-                                <td><?php echo $totalSortyments['b']; ?></td>
-                                <td><?php echo $totalSortyments['c']; ?></td>
-                                <td><?php echo $totalSortyments['d']; ?></td>
-                                <td><?php echo $totalSortyments['pv']; ?></td>
-                                <td><?php echo $totalSortyments['np']; ?></td>
-                              </tr>
-                              <?php $totalBySortymentInRow = totalBySortymentInRow($db_connection, $_GET['rubka'], $_GET['lisnyctwo']); ?>
-                              <?php foreach($table_data as $row) { $row_id = $row['id'];  $singleRowTotals = $totalBySortymentInRow[$row_id]; ?>
-                                <tr class="row-data" data-kwartal=<?php echo $row['kvartal']; ?> data-vydil=<?php echo $row['vydil']; ?>>
-                                    <td><?php echo $row['kvartal']; ?></td>
-                                    <td><?php echo $row['vydil']; ?></td>
-                                    <td class="total_row"><?php echo $singleRowTotals['total']; ?></td>
-                                    <td class="dilova_column"><?php echo $singleRowTotals['dilova']; ?></td>
-                                    <td><?php echo $singleRowTotals['a']; ?></td>
-                                    <td><?php echo $singleRowTotals['b']; ?></td>
-                                    <td><?php echo $singleRowTotals['c']; ?></td>
-                                    <td><?php echo $singleRowTotals['d']; ?></td>
-                                    <td><?php echo $singleRowTotals['pv']; ?></td>
-                                    <td><?php echo $singleRowTotals['np']; ?></td>
-                                </tr>
-                                <?php }; ?>
+                                <?php foreach($rubky as $rubka){ ?>
+                                    <tr class="total_row row-data" data-kwartal=<?php echo $rubka['kvartal']; ?> data-vydil=<?php echo $rubka['vydil']; ?>>
+                                        <td><?php echo $rubka['kvartal']; ?></td>
+                                        <td><?php echo $rubka['vydil']; ?></td>
+                                    </tr>
+                                    <?php
+                                        $rubka_data = (object)[
+                                            'kvartal' => $rubka['kvartal'] . ' AND ',
+                                            'vydil' => $rubka['vydil']
+                                        ];
+                                        $table_data_current = $db_connection->getDataByColumns($_GET['rubka'] . '_' . $_GET['lisnyctwo'],$rubka_data);
+                                    ?>
+                                    <?php foreach($table_data_current as $row) { $row_id = $row['id'];  $singleRowTotals = $totalBySortymentInRow[$row_id]; ?>
+                                        <tr class="row-data row-data_js" data-kwartal=<?php echo $row['kvartal']; ?> data-vydil=<?php echo $row['vydil']; ?>>
+                                            <td></td>
+                                            <td></td>
+                                            <td class=""><?php echo $singleRowTotals['total']; ?></td>
+                                            <td class="dilova_column"><?php echo $singleRowTotals['dilova']; ?></td>
+                                            <td><?php echo $singleRowTotals['a']; ?></td>
+                                            <td><?php echo $singleRowTotals['b']; ?></td>
+                                            <td><?php echo $singleRowTotals['c']; ?></td>
+                                            <td><?php echo $singleRowTotals['d']; ?></td>
+                                            <td><?php echo $singleRowTotals['pv']; ?></td>
+                                            <td><?php echo $singleRowTotals['np']; ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -240,15 +244,15 @@ console_log($rubky) ?>
                     <div class="accordeon__table ostatky_table" id="view_full_table">
                         <?php
                             foreach($rubky as $rubka){
-                                $kvytokData = getKvytokData($db_connection, $rubka['kvartal'], $rubka['vydil']);
-                                console_log($kvytokData);
+                                $kvytokData = getKvytokData($db_connection,$_GET['lisnyctwo'], $rubka['kvartal'], $rubka['vydil']);
                                 if(!empty($kvytokData)){
                                     $dataByKvytokNumber = getDataByKvytokNumber($db_connection, $_GET['rubka'] . '_' . $_GET['lisnyctwo'], $rubka['kvartal'], $rubka['vydil']);
                                     $filteredDataTotals = getTotalPorodyAfterFilterKvytok($dataByKvytokNumber);
                                     $differences = []; ?>
-                                    <p class="numer_kvytka">Лісорубний Квиток для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?></p>
-                                    <div class="table_wrapp">
-                                    <table class="ostatky_table">
+                                    <div class="row-data" data-kwartal=<?php echo $rubka['kvartal']; ?> data-vydil=<?php echo $rubka['vydil']; ?>>
+                                        <p class="numer_kvytka">Лісорубний Квиток для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?></p>
+                                        <div class="table_wrapp">
+                                        <table class="ostatky_table">
                                         <thead>
                                           <tr>
                                             <th>Сосна</th>
@@ -413,10 +417,11 @@ console_log($rubky) ?>
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                        </table>
+                                        </div>
                                     </div>
                                 <?php } else { ?>
-                                    <div class="kvytok_not_found">
+                                    <div class="kvytok_not_found row-data" data-kwartal=<?php echo 0; ?> data-vydil=<?php echo 0; ?>>
                                         <p class="">Для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?> не було знайдено квитка</p>
                                         <a href="create-ticket.php?lisnyctwo=<?php echo $_GET['lisnyctwo'] ?>&kvartal=<?php echo $rubka['kvartal'] ?>&vydil=<?php echo $rubka['vydil'] ?>">Створити</a>
                                     </div>
@@ -436,14 +441,21 @@ console_log($rubky) ?>
                     <div class="accordeon__table ostatky_table" id="view_full_table">
                     <?php
                             foreach($rubky as $rubka){
-                                $kvytokData = getKvytokData($db_connection, $rubka['kvartal'], $rubka['vydil']);
+                                $kvytokData = getKvytokData($db_connection,$_GET['lisnyctwo'], $rubka['kvartal'], $rubka['vydil']);
+                                $totalPorody = TotalEveryType($db_connection, $_GET['rubka'], $_GET['lisnyctwo']);
+                                $columns_total = totalInColumn($db_connection, $totalPorody, null, $_GET['rubka'], $_GET['lisnyctwo']);
+                                $chvorost1 = $columns_total['chvorost_1c'];
+                                $chvorost2 = $columns_total['chvorost_2c'];
+                                $chvorost3 = $columns_total['chvorost_3c'];
+                                $chvorost_total = $columns_total['chvorostsectiontotal'];
                                 if(!empty($kvytokData)){
                                     $dataByKvytokNumber = getDataByKvytokNumber($db_connection, $_GET['rubka'] . '_' . $_GET['lisnyctwo'], $rubka['kvartal'], $rubka['vydil']);
                                     $filteredDataTotals = getTotalPorodyAfterFilterKvytok($dataByKvytokNumber);
                                     $differences = []; ?>
-                                    <p class="numer_kvytka">Лісорубний Квиток для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?></p>
-                                    <div class="table_wrapp">
-                                    <table class="ostatky_table">
+                                    <div class="row-data" data-kwartal=<?php echo $rubka['kvartal']; ?> data-vydil=<?php echo $rubka['vydil']; ?>>
+                                        <p class="numer_kvytka">Лісорубний Квиток для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?></p>
+                                        <div class="table_wrapp">
+                                        <table class="ostatky_table">
                                         <thead>
                                           <tr>
                                             <th>Хворост Ic</th>
@@ -482,10 +494,11 @@ console_log($rubky) ?>
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                        </table>
+                                        </div>
                                     </div>
                                 <?php } else {  ?>
-                                    <div class="kvytok_not_found">
+                                    <div class="kvytok_not_found row-data" data-kwartal=<?php echo 0; ?> data-vydil=<?php echo 0; ?>>
                                         <p class="">Для Квартал <?php echo $rubka['kvartal'] ?>, Виділ <?php echo $rubka['vydil'] ?> не було знайдено квитка</p>
                                         <a href="create-ticket.php?lisnyctwo=<?php echo $_GET['lisnyctwo'] ?>&kvartal=<?php echo $rubka['kvartal'] ?>&vydil=<?php echo $rubka['vydil'] ?>">Створити</a>
                                     </div>
@@ -496,6 +509,12 @@ console_log($rubky) ?>
                 </div>
             </div>
         </div>
+        <?php } else { ?>
+            <div class="table_is_empty_notification">
+                <p>Ця таблиця Пуста. Будь ласка додайте данні</p>
+                <a href="dodajInfo.php?rubka=<?php echo $_GET['rubka']; ?>&lisnyctwo=<?php echo $_GET['lisnyctwo']; ?>" class="archive_lisnyctwa_item__btns-edit">Додати данні</a>
+            </div>
+        <?php } ?>
     </div>
 </section>
 

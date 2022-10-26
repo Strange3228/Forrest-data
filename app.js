@@ -83,29 +83,39 @@ $(document).ready(function () {
     if (!hasError) {
       var filter = $("#create_ticket_form");
       var formData = filter.serialize();
-      console.log(formData);
       $.ajax({
         type: "post",
         url: $(this).attr("action"),
         data: formData,
         success: function (response) {
-          console.log(response);
           $(".create_ticket__submit").text("Підтвердити");
           if (response.includes("data_added")) {
             alert("Данні успішно додані");
+            $("#create_ticket_form .create_ticket_data_wrapper input").val(0);
+            let nextval =
+              Number(
+                $(
+                  "#create_ticket_form .create_ticket_form_block--ticket_number input"
+                ).val()
+              ) + 1;
+            $(
+              "#create_ticket_form .create_ticket_form_block--ticket_number input"
+            ).val(nextval);
           } else if (response.includes("ticket_added")) {
             alert("Квиток успішно створений");
+            $("#create_ticket_form .create_ticket_data_wrapper input").val(0);
+            let nextval =
+              Number(
+                $(
+                  "#create_ticket_form .create_ticket_form_block--ticket_number input"
+                ).val()
+              ) + 1;
+            $(
+              "#create_ticket_form .create_ticket_form_block--ticket_number input"
+            ).val(nextval);
+          } else if (response.includes("already_exists")) {
+            alert("Квиток для цієї рубки вже існує");
           }
-          $("#create_ticket_form .create_ticket_data_wrapper input").val(0);
-          let nextval =
-            Number(
-              $(
-                "#create_ticket_form .create_ticket_form_block--ticket_number input"
-              ).val()
-            ) + 1;
-          $(
-            "#create_ticket_form .create_ticket_form_block--ticket_number input"
-          ).val(nextval);
         },
       });
     }
@@ -155,5 +165,87 @@ $(document).ready(function () {
         }
       });
     }
+  });
+
+  /*RUBKA SUM*/
+  let tables = $(".accordeon__table table.data_table");
+  tables.each(function () {
+    let rows = $(this).find(".row-data_js");
+    let table = $(this);
+    let sums = [];
+    let kvartal = 0,
+      vydil = 0;
+    let prevKvartal = null,
+      prevVydil = null;
+    console.log("new table");
+    rows.each(function (index) {
+      let cells = $(this).find("td");
+      console.log(cells);
+      kvartal = $(this).data("kwartal");
+      vydil = $(this).data("vydil");
+      if (prevKvartal === null) {
+        prevKvartal = kvartal;
+        console.log("Hey its traitor");
+      }
+      if (prevVydil === null) {
+        prevVydil = vydil;
+      }
+      console.log(kvartal);
+      console.log(prevKvartal);
+      console.log(vydil);
+      console.log(prevVydil);
+      if (kvartal == prevKvartal && vydil == prevVydil) {
+        cells.each(function (index) {
+          if (sums[index]) {
+            let val = $(this).text();
+            sums[index] = sums[index] + parseFloat(val);
+            sums[index] = sums[index].toFixed(3);
+          } else {
+            sums[index] = parseFloat($(this).text());
+          }
+        });
+        console.log(sums);
+      } else {
+        sums.forEach((element, index) => {
+          if (index >= 2) {
+            table
+              .find(
+                ".total_row.row-data[data-kwartal=" +
+                  prevKvartal +
+                  "][data-vydil=" +
+                  prevVydil +
+                  "]"
+              )
+              .append("<td>" + element + "</td>");
+          }
+        });
+        sums = [];
+        cells.each(function (index) {
+          if (sums[index]) {
+            let val = $(this).text();
+            sums[index] = sums[index] + parseFloat(val);
+            sums[index] = sums[index].toFixed(3);
+          } else {
+            sums[index] = parseFloat($(this).text());
+          }
+        });
+        console.log(sums);
+      }
+      prevKvartal = kvartal;
+      prevVydil = vydil;
+    });
+    sums.forEach((element, index) => {
+      if (index >= 2) {
+        table
+          .find(
+            ".total_row.row-data[data-kwartal=" +
+              prevKvartal +
+              "][data-vydil=" +
+              prevVydil +
+              "]"
+          )
+          .append("<td>" + element + "</td>");
+      }
+    });
   });
 });
