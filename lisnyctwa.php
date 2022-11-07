@@ -11,11 +11,12 @@
 </section>
 
 <section class="archive_lisnyctwa">
-    <div class="container">
+    <div class="container design_rework">
         <div class="box">
             <div class="search_wrapp">
                 <input type="text" id="archive_lisnyctwa_search_name" class="search_lisnyctwa" placeholder="Розпочніть писати назву...">
             </div>
+            <div class="lisnyctwa_wrapp">
             <?php
                 $tables = $db_connection->getTableNames($_GET['rubka']);
                 foreach($tables as $table){
@@ -104,6 +105,7 @@
             <?php
                 }
             ?>
+            </div>
         </div>
     </div>
 </section>

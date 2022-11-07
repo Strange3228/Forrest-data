@@ -8,6 +8,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
+  color: #dcd7c9;
 }
 a {
   color: inherit;
@@ -29,7 +30,6 @@ nav {
 .logo_wrapp {
   font-size: 30px;
   padding: 10px 20px;
-  background: green;
   color: white;
   border-radius: 14px;
 }
@@ -152,7 +152,7 @@ section.page_titles {
   font-size: 24px;
 }
 .accordeon {
-  background: darkgrey;
+  background: #dcd7c9;
   padding: 0 20px;
   margin-bottom: 30px;
   border-radius: 20px;
@@ -379,103 +379,7 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-.create_ticket_form_block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-bottom: 40px;
-}
-.create_ticket_form_block p {
-  margin-bottom: 10px;
-  font-weight: 500;
-}
-.create_ticket_form_block input {
-  text-align: center;
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
-  border: 2px solid grey;
-  outline: none;
-}
-.create_ticket_data_single {
-  display: flex;
-}
-.create_ticket_data_single > div {
-  flex: 1;
-}
-.create_ticket_data_single__left {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
-}
-.create_ticket_data_single {
-  padding-bottom: 20px;
-  padding-top: 20px;
-  border-bottom: 3px solid grey;
-}
-.create_ticket_input_box {
-  display: flex;
-  flex-direction: column;
-}
-.create_ticket_input_box label::after {
-  content: ":";
-}
-.create_ticket_input_box input {
-  width: 200px;
-  height: 30px;
-  padding-left: 5px;
-}
-.create_ticket_input_box label {
-  font-size: 14px;
-}
-.create_ticket_data_single__right {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-}
-.create_ticket_section h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.create_ticket_data_wrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
-.create_ticket_data_single {
-  flex: 1;
-  min-width: 45%;
-}
-.create_ticket_data_single__right {
-  justify-content: center;
-}
-.create_ticket_data_single:nth-child(2n) {
-  border-left: 3px solid grey;
-}
-.create_ticket__submit {
-  background: #008000;
-  color: whtie;
-  border: none;
-  outline: none;
-  padding: 10px 30px;
-  display: inline-block;
-  color: white;
-  border-radius: 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
-.create_ticket__btns {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
-.create_ticket_data_single input {
-  outline: none;
-  border-radius: 8px;
-  border: 2px solid grey;
-}
+
 .input_with_error {
   border: 3px solid #df4f4f !important;
 }
@@ -484,20 +388,20 @@ input[name="ticket_number"] {
 }
 
 body {
-  background: #8ee4af;
+  background: #2c3639;
 }
 header {
   background: none;
 }
 .footer_copyright {
-  background: #05386b;
+  background: #3f3e3f;
 }
 .login_form_container form {
-  background: #05386b;
+  background: #a27b5c;
   border-radius: 15px;
 }
 .login_form_container form button {
-  background: #379683;
+  background: #3f4e4f;
   transform: rotate(0deg);
   transition: all 0.4s ease;
 }
@@ -509,7 +413,7 @@ header {
   border: none;
 }
 .login_form_container form input:focus {
-  outline: 3px solid #008000;
+  outline: 3px solid #dcd7c9;
 }
 @keyframes shake {
   0% {
@@ -526,12 +430,12 @@ header {
   }
 }
 .default__items {
-  background: #05386b;
+  background: #3f3e3f;
   border-radius: 10px;
 }
 .default_item {
-  background: #379683;
-  color: #edf5e1;
+  background: #3f4e4f;
+  color: #dcd7c9;
 }
 .default_item:hover {
   animation: shake 0.2s ease forwards;
@@ -541,12 +445,12 @@ header {
   background: none;
 }
 .archive_lisnyctwa_item {
-  background: #05386b;
-  color: #edf5e1;
+  background: #3f3e3f;
+  color: #dcd7c9;
   border-radius: 10px;
 }
 .archive_lisnyctwa_item__total_list_item--value {
-  background: #379683;
+  background: #3f4e4f;
   border-radius: 10px;
 }
 .search_wrapp input {
@@ -560,12 +464,12 @@ header {
   background: none;
 }
 .archive_lisnyctwa_item {
-  background: #05386b;
-  color: #edf5e1;
+  background: #3f3e3f;
+  color: #dcd7c9;
   border-radius: 10px;
 }
 .archive_lisnyctwa_item__total_list_item--value {
-  background: #379683;
+  background: #3f4e4f;
   border-radius: 10px;
 }
 .search_wrapp input {
@@ -576,36 +480,11 @@ header {
   outline: 3px solid #008000;
 }
 .accordeon {
-  background: #05386b;
+  background: #dcd7c9;
 }
 .accordeon__main p,
 .numer_kvytka {
-  color: #edf5e1;
-}
-.create_ticket_data_single {
-  border-bottom: 3px solid #05386b;
-}
-.create_ticket_data_single:nth-child(2n) {
-  border-left: 3px solid #05386b;
-}
-.create_ticket_data_single input {
-  border: none;
-  margin-top: 10px;
-  transition: all 0.2s ease;
-}
-.create_ticket_data_single input:focus {
-  outline: 3px solid #008000;
-}
-.create_ticket_data_single__left p {
-  text-transform: uppercase;
-  background: #05386b;
-  color: #edf5e1;
-  padding: 5px 15px;
-  border-radius: 10px;
-  text-decoration: underline;
-}
-.create_ticket_form_block input {
-  border: none;
+  color: #dcd7c9;
 }
 select {
   border: none;
@@ -700,7 +579,7 @@ select {
   display: block;
 }
 .table_is_empty_notification {
-  background: #05386b;
+  background: #3f3e3f;
   color: white;
   max-width: 300px;
   text-align: center;
@@ -718,4 +597,149 @@ select {
 .table_is_empty_notification .archive_lisnyctwa_item__btns-edit {
   padding: 10px;
   border-radius: 15px;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  justify-content: center;
+  gap: 20px;
+}
+.card {
+  display: flex;
+  min-width: 20%;
+  max-width: 20%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background: #a27b5c;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 18px;
+}
+.lisnyctwa_wrapp {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.archive_lisnyctwa_item {
+  background: #3f4e4f;
+  margin-bottom: 0;
+}
+.archive_lisnyctwa_item__details_list_item,
+.archive_lisnyctwa_item__total_list_item {
+  justify-content: space-between;
+}
+.archive_lisnyctwa_item__total_list_item--value {
+  background: #a27b5c;
+  min-width: unset;
+  width: 150px;
+  text-align: center;
+  padding: 5px 15px;
+}
+.search_wrapp input:focus {
+  outline: 3px solid #a27b5c;
+}
+.archive_lisnyctwa_item__btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.archive_lisnyctwa_item__total_list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.card > div {
+  transform: scale(1);
+  transition: transform 0.2s ease;
+}
+.card:hover > div {
+  transform: scale(1.1);
+}
+.accordeon * {
+  color: black;
+}
+.accordeon__main p,
+.numer_kvytka {
+  color: #2c3639;
+}
+table th {
+  background-color: #a27b5c;
+  color: white !important;
+}
+.create_ticket_data_single__left {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.create_ticket_data_single__right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.create_ticket_input_box {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.create_ticket_input_box input {
+  width: 100%;
+  text-align: center;
+  border: none;
+  margin-top: 10px;
+  height: 30px;
+  border-radius: 5px;
+}
+.create_ticket_data_single {
+  background: #dcd7c9;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 50%;
+  min-width: 40%;
+  flex: 1;
+}
+.create_ticket_data_single * {
+  color: #2c3639;
+}
+.create_ticket_section h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.create_ticket_data_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+.create_ticket__btns {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+.create_ticket__submit {
+  height: 50px;
+  width: 150px;
+  background: #059862;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
+}
+.create_ticket_form_block.create_ticket_form_block--ticket_number {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 30px;
+  align-items: center;
+}
+.create_ticket_form_block.create_ticket_form_block--ticket_number p {
+  margin-bottom: 10px;
+}
+.create_ticket_form_block.create_ticket_form_block--ticket_number input {
+  text-align: center;
+  width: 100px;
 }

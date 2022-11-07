@@ -10,44 +10,66 @@
 
 <section id="type_rubka">
   <div class="container">
-    <div class="default__items">
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=golovnekorystuvania">Головне Користування</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=osvitlenia">Освітлення</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=proridzuvania">Проріджування</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=prochidna">Прохідна рубка</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=vybirkovasanitarna">Вибіркова санітарна рубка</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=sucilnasanitarna">Суцільна санітарна рубка</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=rozrubkakvartalnychlinij">Розрубка квартальних ліній</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=rozhyraniadorogy">Розширення дороги</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=rozchyshcheniaelektroperedach">Розчищення лінії електропередач</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=inshizlisgosp">Інші рубки повязані з веденням лісового господарства</a>
-      </div>
-      <div class="default_item">
-        <a href="lisnyctwa.php?rubka=inshibezlisgosp">Інші рубки не повязані з веденням лісового господарства</a>
-      </div>
+    <div class="cards">
+      <a class="card" href="lisnyctwa.php?rubka=golovnekorystuvania">
+        <div class="card_title">
+          Головне Користування
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=osvitlenia">
+        <div class="card_title">
+          Освітлення
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=proridzuvania">
+        <div class="card_title">
+          Проріджування
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=prochidna">
+        <div class="card_title">
+          Прохідна рубка
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=vybirkovasanitarna">
+        <div class="card_title">
+          Вибіркова санітарна рубка
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=sucilnasanitarna">
+        <div class="card_title">
+          Суцільна санітарна рубка
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=rozrubkakvartalnychlinij">
+        <div class="card_title">
+          Розрубка квартальних ліній
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=rozhyraniadorogy">
+        <div class="card_title">
+          Розширення дороги
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=rozchyshcheniaelektroperedach">
+        <div class="card_title">
+          Розчищення лінії електропередач
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=inshizlisgosp">
+        <div class="card_title">
+          Інші рубки повязані з веденням лісового господарства
+        </div>
+      </a>
+      <a class="card" href="lisnyctwa.php?rubka=inshibezlisgosp">
+        <div class="card_title">
+          Інші рубки не повязані з веденням лісового господарства
+        </div>
+      </a>
     </div>
   </div>
 </section>
-
+<!--
 <section id="problem_datas">
   <div class="container">
     <div class="box">
@@ -60,4 +82,5 @@
     </div>
   </div>
 </section>
+-->
 <?php include('parts/foot.php');?>
