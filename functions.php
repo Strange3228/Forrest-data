@@ -279,6 +279,8 @@ function wordsTranslation( $word ){
             return 'Плужнянське';
         case 'pokoshchivskie':
             return 'Покощівське';
+        case 'volume':
+            return "";
         default:
             return $word;
     }

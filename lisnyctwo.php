@@ -4,6 +4,7 @@
 <?php $db_connection = new General; ?>
 <?php $rubky = $db_connection->getRubky($_GET['rubka'] . '_' . $_GET['lisnyctwo']); ?>
 <?php $table_data = $db_connection->getData($_GET['rubka'] . '_' . $_GET['lisnyctwo']); ?>
+<?php $wordsWhichHasntTotals = ['sosna_volume','jalyna_volume','dub_volume','bereza_volume','vilha_volume','grab_volume','jasen_volume','klen_volume','osyka_volume','lypa_volume','inshe_volume','serednii_volume']; ?>
 
 <section class="hidden_block" id="rubky">
     <?php foreach($rubky as $rubka){ ?>
@@ -54,6 +55,32 @@
                         ?>
                         <table class="data_table">
                             <thead>
+                            <tr class="table_titles">
+                                <th colspan="3"></th>
+                                <th colspan="11">Об'єм хлиста</th>
+                                <th colspan="2"></th>
+                                <?php foreach($table_data as $row) {
+                                    $previousWord = '';
+                                    foreach($row as $item_key => $item_value){
+                                        if(isset($allowedCoreTypes[strtok($item_key, '_')])) {
+                                            if($item_key != 'kvartal' && $item_key != 'vydil'  && $item_key != 'id'){
+                                                if(strtok($item_key, '_') != $previousWord && $item_key != 'realizowano_liquidu' && $item_key != 'oczystka_lisosiky' && $item_key != 'pidhotovchi_roboty' && $item_key != 'ploshcha' && !in_array($item_key, $wordsWhichHasntTotals)){
+                                                    $previousWord = strtok($item_key, '_');?>
+                                                        <?php if(strtok($item_key, '_') != 'treliuvania') { ?>
+                                                            <?php if(strpos($item_key,'chvorost') === 0) { ?>
+                                                                <th colspan="4"><?php echo phraseTranslation(strtok($item_key, '_')); ?></th>
+                                                            <?php } else { ?>
+                                                                <th colspan="7"><?php echo phraseTranslation(strtok($item_key, '_')); ?></th>
+                                                            <?php } ?>
+                                                        <?php } ?>
+                                                <?php } 
+                                            };
+                                        }    
+                                    };
+                                    break;
+                                }; ?>
+                                <th colspan="2"></th>
+                            </tr>
                               <tr>
                                 <th>Квартал</th>
                                 <th>Виділ</th>
@@ -62,15 +89,24 @@
                                     foreach($row as $item_key => $item_value){
                                         if(isset($allowedCoreTypes[strtok($item_key, '_')])) {
                                             if($item_key != 'kvartal' && $item_key != 'vydil'  && $item_key != 'id'){
-                                                if(strtok($item_key, '_') != $previousWord && $item_key != 'realizowano_liquidu' && $item_key != 'oczystka_lisosiky' && $item_key != 'pidhotovchi_roboty' && $item_key != 'ploshcha'){
+                                                if(strtok($item_key, '_') != $previousWord && $item_key != 'realizowano_liquidu' && $item_key != 'oczystka_lisosiky' && $item_key != 'pidhotovchi_roboty' && $item_key != 'ploshcha' && !in_array($item_key, $wordsWhichHasntTotals)){
                                                     $previousWord = strtok($item_key, '_');?>
                                                         <?php if(strtok($item_key, '_') != 'treliuvania') { ?>
-                                                            <th class="type_total_column"><?php echo phraseTranslation(strtok($item_key, '_')) . ' Всього'; ?></th>
+                                                            <th class="type_total_column">Всього</th>
                                                         <?php } ?>
-                                                    <th><?php echo phraseTranslation($item_key); ?></th>
+                                                    <th><?php echo phraseTranslation(substr($item_key,strpos($item_key, "_") + 1)); ?></th>
                                                 <?php } else { ?>
-                                                <th><?php echo phraseTranslation($item_key); ?></th>
-                                            <?php }; };
+                                                    <?php if (in_array(strtok($item_key, '_'), $allowedCoreTypes)) { console_log(substr($item_key,strpos($item_key, "_") + 1)); ?>
+                                                        <?php if(strtok($item_key, '_') != 'realizowano' && strtok($item_key, '_') != 'oczystka' && strtok($item_key, '_') != 'pidhotovchi' && strtok($item_key, '_') != 'ploshcha' && substr($item_key,strpos($item_key, "_") + 1) != 'volume') { ?>
+                                                            <th><?php echo wordsTranslation(substr($item_key,strpos($item_key, "_") + 1)); ?></th>
+                                                        <?php } else { ?>
+                                                            <th><?php echo phraseTranslation($item_key); ?></th>
+                                                        <?php } ?>
+                                                    <?php } else { ?>
+                                                        <th><?php echo phraseTranslation($item_key); ?></th>
+                                                    <?php } ?>
+                                                <?php }; 
+                                            };
                                         }    
                                     };
                                     break;
@@ -99,7 +135,7 @@
                                             <td class="single_vydil_number empty_cell"></td>
                                             <?php foreach($row as $item_key => $item_value){
                                                 if(isset($allowedCoreTypes[strtok($item_key, '_')])) {
-                                                if(strtok($item_key, '_') != $previousWord && $item_key != 'realizowano_liquidu' && $item_key != 'oczystka_lisosiky' && $item_key != 'pidhotovchi_roboty' && $item_key != 'ploshcha' && $item_key != 'kvartal' && $item_key != 'vydil' && $item_key != 'id'){ 
+                                                if(strtok($item_key, '_') != $previousWord && $item_key != 'realizowano_liquidu' && $item_key != 'oczystka_lisosiky' && $item_key != 'pidhotovchi_roboty' && $item_key != 'ploshcha' && $item_key != 'kvartal' && $item_key != 'vydil' && $item_key != 'id' && !in_array($item_key, $wordsWhichHasntTotals)){ 
                                                     $previousWord = strtok($item_key, '_'); ?>
                                                     <?php if(strtok($item_key, '_') != 'treliuvania') { ?>
                                                     <td class="row_items_total"><?php echo $rows_total[$row_id][$previousWord]; ?></td>

@@ -64,6 +64,62 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="create_ticket_data_single">
+                    <div class="create_ticket_data_single__left">
+                        <p>Об'єм хлиста</p>
+                    </div>
+                    <div class="create_ticket_data_single__right">
+                        <div class="create_ticket_input_box">
+                            <label for="sosna_volume">Сосна</label>
+                            <input type="text" value="0" name="sosna_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="jalyna_volume">Ялина</label>
+                            <input type="text" value="0" name="jalyna_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="dub_volume">Дуб</label>
+                            <input type="text" value="0" name="dub_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="bereza_volume">Береза</label>
+                            <input type="text" value="0" name="bereza_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="vilha_volume">Вільха</label>
+                            <input type="text" value="0" name="vilha_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="grab_volume">Граб</label>
+                            <input type="text" value="0" name="grab_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="jasen_volume">Ясен</label>
+                            <input type="text" value="0" name="jasen_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="klen_volume">Клен</label>
+                            <input type="text" value="0" name="klen_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="osyka_volume">Осика</label>
+                            <input type="text" value="0" name="osyka_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="lypa_volume">Липа</label>
+                            <input type="text" value="0" name="lypa_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="inshe_volume">Інші</label>
+                            <input type="text" value="0" name="inshe_volume">
+                        </div>
+                        <div class="create_ticket_input_box">
+                            <label for="serednii_volume">Середній</label>
+                            <input type="text" value="0" name="serednii_volume">
+                        </div>
+                    </div>
+                </div>
                 <?php foreach($all_porody as $k => $v){ ?>
                     <div class="create_ticket_data_single">
                         <div class="create_ticket_data_single__left">
