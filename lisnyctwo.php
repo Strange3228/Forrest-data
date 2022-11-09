@@ -53,10 +53,13 @@
                         <?php
                             $allowedCoreTypes = allowedCoreDataNames();
                         ?>
+                        <div class="table_wrapper">
                         <table class="data_table">
                             <thead>
                             <tr class="table_titles">
-                                <th colspan="3"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
                                 <th colspan="11">Об'єм хлиста</th>
                                 <th colspan="2"></th>
                                 <?php foreach($table_data as $row) {
@@ -96,7 +99,7 @@
                                                         <?php } ?>
                                                     <th><?php echo phraseTranslation(substr($item_key,strpos($item_key, "_") + 1)); ?></th>
                                                 <?php } else { ?>
-                                                    <?php if (in_array(strtok($item_key, '_'), $allowedCoreTypes)) { console_log(substr($item_key,strpos($item_key, "_") + 1)); ?>
+                                                    <?php if (in_array(strtok($item_key, '_'), $allowedCoreTypes)) { ?>
                                                         <?php if(strtok($item_key, '_') != 'realizowano' && strtok($item_key, '_') != 'oczystka' && strtok($item_key, '_') != 'pidhotovchi' && strtok($item_key, '_') != 'ploshcha' && substr($item_key,strpos($item_key, "_") + 1) != 'volume') { ?>
                                                             <th><?php echo wordsTranslation(substr($item_key,strpos($item_key, "_") + 1)); ?></th>
                                                         <?php } else { ?>
@@ -151,6 +154,7 @@
                                 <?php } ?>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -163,6 +167,7 @@
                 </div>
                 <div class="accordeon_content">
                     <div class="accordeon__table" id="view_full_table">
+                    <div class="table_wrapper">
                     <table class="data_table">
                             <thead>
                               <tr>
@@ -205,6 +210,7 @@
                                 <?php } ?>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -217,7 +223,8 @@
                 </div>
                 <div class="accordeon_content">
                     <div class="accordeon__table" id="view_full_table">
-                        <table class="data_table" style="width:100%; table-layout:fixed">
+                        <div class="table_wrapper">
+                        <table class="data_table">
                             <thead>
                               <tr>
                                 <th>Квартал</th>
@@ -266,6 +273,7 @@
                                 <?php } ?>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>

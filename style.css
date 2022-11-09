@@ -323,8 +323,7 @@ table th {
   color: white;
 }
 .total_row {
-  background: #df4f4f !important;
-  color: white;
+  background: #ff99cc !important;
 }
 .type_total_column {
   background: #ff99cc;
@@ -742,4 +741,40 @@ table th {
 .create_ticket_form_block.create_ticket_form_block--ticket_number input {
   text-align: center;
   width: 100px;
+}
+.table_wrapper th:nth-child(1),
+.table_wrapper td:nth-child(1),
+.table_wrapper th:nth-child(2),
+.table_wrapper td:nth-child(2) {
+  position: absolute;
+  width: 80px;
+  left: 0;
+  height: 39px;
+  background: #8bd9d9;
+  top: auto;
+  margin-top: -1px;
+  color: black !important;
+  font-weight: 500;
+}
+.table_wrapper th:nth-child(2),
+.table_wrapper td:nth-child(2) {
+  left: 80px;
+  border-left: 0;
+  border-right: 0;
+}
+.table_wrapper th:nth-child(1),
+.table_wrapper th:nth-child(2) {
+  height: 57px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table_wrapper {
+  width: calc(100% - 160px);
+  overflow-x: scroll;
+  overflow-y: visible;
+  margin-left: 160px;
+}
+.accordeon__table {
+  position: relative;
 }
